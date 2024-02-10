@@ -78,6 +78,7 @@ public class RobotContainer {
   private void configureBindings() {
     m_swerve.setDefaultCommand(command_joyDrive);
     joystick.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
+    joystick.y().onTrue(m_launcher.shootNote(1));
     joystick.b().whileTrue(command_joyPointDrive);
     joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     joystick.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
