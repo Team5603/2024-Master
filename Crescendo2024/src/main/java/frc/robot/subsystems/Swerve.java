@@ -133,7 +133,7 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             double accelerationConstraint,
             double RotationConstraint,
             double rotationAccelerationConstraint) {
-        Pose2d targetPose = new Pose2d(tag.xPos, tag.yPos, Rotation2d.fromDegrees(-1 * tag.direction));
+        Pose2d targetPose = new Pose2d(tag.xPos, tag.yPos, Rotation2d.fromDegrees((tag.direction) < 0 ? Math.abs(tag.direction) - 180: 180 - Math.abs(tag.direction)));
 
         // Create the constraints the use while pathfinding
         PathConstraints constraints = new PathConstraints(speedConstraint, accelerationConstraint,

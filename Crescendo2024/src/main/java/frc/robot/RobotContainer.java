@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.logToSmartDashboard;
 import frc.robot.commands.runNeo550;
+import frc.robot.commands.shootNote;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.VisionConstants.TagData;
 import frc.robot.subsystems.Intake;
@@ -78,7 +79,7 @@ public class RobotContainer {
   private void configureBindings() {
     m_swerve.setDefaultCommand(command_joyDrive);
     joystick.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
-    joystick.y().onTrue(m_launcher.shootNote(1));
+    joystick.y().whileTrue(new shootNote(m_launcher));
     joystick.b().whileTrue(command_joyPointDrive);
     joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     joystick.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
