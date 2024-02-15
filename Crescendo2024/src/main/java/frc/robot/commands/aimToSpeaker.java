@@ -6,13 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.subsystems.Launcher;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class aimToSpeaker extends PIDCommand {
   /** Creates a new aimToSpeaker. */
-  public aimToSpeaker() {
+  public aimToSpeaker(Launcher m_Launcher) {
     super(
         // The controller that the command will use
         new PIDController(0, 0, 0),
@@ -23,8 +24,11 @@ public class aimToSpeaker extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-        });
+          m_Launcher.runLift(output);
+        },
+        m_Launcher);
     // Use addRequirements() here to declare subsystem dependencies.
+      addRequirements(m_Launcher);
     // Configure additional PID options by calling `getController` here.
   }
 

@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.VisionConstants.entry;
+import frc.robot.constants.VisionConstants;
 import frc.robot.utils.VisionUtils;
 
 public class Vision extends SubsystemBase implements VisionUtils {
@@ -77,4 +78,33 @@ public class Vision extends SubsystemBase implements VisionUtils {
     }
 
     // gets distance from LL to current target (in inches)
+    public double getRawDistance() {
+        double relativeHeight = VisionConstants.targetToGround - VisionConstants.camToGround;
+        double angleToTarget = VisionConstants.leveledCamAngle + getY();
+        double angleInRads = (angleToTarget * 3.1415926) / 180;
+        return (relativeHeight / Math.tan(angleInRads));
+    }
+
+    /** gets horizontal distance from current target **/
+    public double getHorizontalDistance() {
+        /** long side of the triangle **/
+        double hypotenuse = getRawDistance();
+        /** the side of the triangle straight ahead of the limelight */
+        double opposite = VisionConstants.targetToGround - VisionConstants.camToGround;
+        /** pythagorean theorem :) */
+        double pyth = (Math.pow(hypotenuse, 2) - Math.pow(opposite, 2));
+        return (Math.sqrt(pyth));
+    }
+
+    /** gets closest angle of the triangle formed from the raw and horizontal distances **/
+    public double getVerticalAngleToTarget() {
+        
+        double height =  VisionConstants.targetToGround - VisionConstants.speakerAprilTagToGround;
+
+        double distance = getHorizontalDistance();
+
+        double verticalAngleInRads = Math.atan(height/distance);
+
+        return Math.toDegrees(verticalAngleInRads);
+    }
 }

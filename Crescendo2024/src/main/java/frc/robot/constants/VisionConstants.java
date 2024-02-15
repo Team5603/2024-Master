@@ -2,9 +2,13 @@ package frc.robot.constants;
 
 public class VisionConstants {
     /* placeholder values!!!!! */
-    final static double camToGround = 20;
-    final static double leveledCamAngle = 30;
+    public final static double camToGround = 20;
+    public final static double launcherToGround = 25;
+    public final static double targetToGround = 40;
+    public final static double speakerAprilTagToGround = 30;
+    public final static double leveledCamAngle = 30;
     final static int targetRange_px = 30;
+
 
     public interface pipeline {
         final static int Fiducial = 0;

@@ -6,4 +6,8 @@ public class GeneralConstants {
         public static final double liftDownLimit = 10;
         public static final double liftUpLimit = 1600;
     }
+    public class Launcher {
+        // placeholder
+        public static final int angleToEncoderTranslation = 4;
+    }
 }
