@@ -9,8 +9,8 @@ public class Intake extends SubsystemBase {
     CANSparkMax inkakeRight, intakeLeft;
     public Intake () {
         // placeholder values !!!!!!
-        inkakeRight = new CANSparkMax(4, MotorType.kBrushless);
-        intakeLeft = new CANSparkMax(5, MotorType.kBrushless);
+        // inkakeRight = new CANSparkMax(4, MotorType.kBrushless);
+        // intakeLeft = new CANSparkMax(5, MotorType.kBrushless);
     }
     @Override
     public void periodic() {

@@ -28,7 +28,7 @@ import frc.robot.subsystems.Vision;
 
 public class RobotContainer {
   // Sweve drive platform
-  public static final Swerve m_swerve = SwerveConstants.swerve;
+  public static final Swerve m_swerve = SwerveConstants.DriveTrain;
   public static final Intake m_intake = new Intake();
   public static final Launcher m_launcher = new Launcher();
   public static final Vision m_vision = new Vision();
@@ -38,7 +38,7 @@ public class RobotContainer {
   private static SwerveRequest.RobotCentric swerve_forwardStraight;
   private static SwerveRequest.PointWheelsAt swerve_point;
 
-  private double maxSpeed = 1; // 6 meters/sec desired top speed
+  private double maxSpeed = 6; // 6 meters/sec desired top speed
   private double maxAngularRate = 1.5 * Math.PI; // 3/4 a rotation/sec max angular velocity. 1.5*pi as default
 
   // set up bindings for control of swerve drive platform
@@ -49,14 +49,14 @@ public class RobotContainer {
   private static Command command_runAuto;
 
   public void configureSwerve() {
-    m_swerve.getAutoPath("Tests");
+    //m_swerve.getAutoPath("Tests");
     swerve_forwardStraight = new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     swerve_brake = new SwerveRequest.SwerveDriveBrake();
     swerve_point = new SwerveRequest.PointWheelsAt();
 
-    command_runAuto = m_swerve.getAutoPath("Tests");
+    //command_runAuto = m_swerve.getAutoPath("Tests");
     command_joyDrive = m_swerve.applyRequest(() -> swerve_drive
-        .withVelocityX(-joystick.getLeftY() * maxSpeed).withVelocityY(-joystick.getRightX() * maxAngularRate))
+        .withVelocityX(-joystick.getLeftY() * maxSpeed).withVelocityY(-joystick.getLeftX() * maxAngularRate).withRotationalRate(-joystick.getRightX() * maxAngularRate))
         .ignoringDisable(true);
 
     command_joyPointDrive = m_swerve.applyRequest(
@@ -76,10 +76,11 @@ public class RobotContainer {
   private final RobotTelemetry logger = new RobotTelemetry(maxSpeed);
 
   private void configureBindings() {
+    configureSwerve();
     m_swerve.setDefaultCommand(command_joyDrive);
     joystick.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
-    joystick.b().whileTrue(command_joyPointDrive);
-    joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
+    //joystick.b().whileTrue(command_joyPointDrive);
+    //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     joystick.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),
