@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
     // useLimelight();
-    SmartDashboard.putNumber("Right Joystick", m_robotContainer.joystick.getRightX());
+    SmartDashboard.putNumber("Right Joystick", m_robotContainer.driveController.getRightX());
   }
   @Override
   public void autonomousInit() {

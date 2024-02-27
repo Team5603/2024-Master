@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.liftIntake;
 import frc.robot.commands.logToSmartDashboard;
 import frc.robot.commands.runNeo550;
 import frc.robot.commands.shootNote;
@@ -43,7 +44,8 @@ public class RobotContainer {
   private double maxAngularRate = 1.5 * Math.PI; // 3/4 a rotation/sec max angular velocity. 1.5*pi as default
 
   // set up bindings for control of swerve drive platform
-  public final CommandXboxController joystick = new CommandXboxController(0);
+  public final CommandXboxController driveController = new CommandXboxController(0);
+  public final CommandXboxController manipulateController = new CommandXboxController(1);
 
   private static Command command_joyDrive;
   private static Command command_joyPointDrive;
@@ -57,11 +59,11 @@ public class RobotContainer {
 
     //command_runAuto = m_swerve.getAutoPath("Tests");
     command_joyDrive = m_swerve.applyRequest(() -> swerve_drive
-        .withVelocityX(-joystick.getLeftY() * maxSpeed).withVelocityY(-joystick.getLeftX() * maxAngularRate).withRotationalRate(-joystick.getRightX() * maxAngularRate))
+        .withVelocityX(-driveController.getLeftY() * maxSpeed).withVelocityY(-driveController.getLeftX() * maxAngularRate).withRotationalRate(-driveController.getRightX() * maxAngularRate))
         .ignoringDisable(true);
 
     command_joyPointDrive = m_swerve.applyRequest(
-        () -> swerve_point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX())));
+        () -> swerve_point.withModuleDirection(new Rotation2d(-driveController.getLeftY(), -driveController.getLeftX())));
 
     swerve_drive = new SwerveRequest.FieldCentric().withDeadband(maxSpeed * 0.1)
         .withRotationalDeadband(maxAngularRate * 0.1)// add a 10% deadband
@@ -79,21 +81,23 @@ public class RobotContainer {
   private void configureBindings() {
     configureSwerve();
     m_swerve.setDefaultCommand(command_joyDrive);
-    joystick.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
+    m_intake.setDefaultCommand(new liftIntake(m_intake, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0: manipulateController.getLeftY()));
+    driveController.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
     //joystick.b().whileTrue(command_joyPointDrive);
     //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
-    joystick.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
+    driveController.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
+    
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),
     // Rotation2d.fromDegrees(90)));
     // }
     m_swerve.registerTelemetry(logger::telemeterize);
 
-    joystick.pov(0).whileTrue(m_swerve.applyRequest(() -> swerve_forwardStraight.withVelocityX(0.5).withVelocityY(0)));
-    joystick.pov(180)
+    driveController.pov(0).whileTrue(m_swerve.applyRequest(() -> swerve_forwardStraight.withVelocityX(0.5).withVelocityY(0)));
+    driveController.pov(180)
         .whileTrue(m_swerve.applyRequest(() -> swerve_forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
 
-    if (joystick.getLeftX() > 0.1 || joystick.getLeftY() < -0.1) {
+    if (driveController.getLeftX() > 0.1 || driveController.getLeftY() < -0.1) {
     }
   }
 

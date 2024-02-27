@@ -18,8 +18,8 @@ public class Launcher extends SubsystemBase {
 
     public Launcher() {
         // placeholder values!
-        shootLeft = new TalonFX(1);
-        shootRight = new TalonFX(2);
+        shootLeft = new TalonFX(10);
+        shootRight = new TalonFX(26);
 
         liftLeft = new CANSparkMax(12, MotorType.kBrushless);
         liftRight = new CANSparkMax(9, MotorType.kBrushless);
