@@ -14,7 +14,7 @@ public class Launcher extends SubsystemBase {
     CANSparkMax liftRight, liftLeft;
     private static final SparkMaxAlternateEncoder.Type alternateEncoderType = SparkMaxAlternateEncoder.Type.kQuadrature;
     private static int cPR = 8192;
-    DigitalInput sensor = new DigitalInput(1);
+    
 
     public Launcher() {
         // placeholder values!
@@ -34,7 +34,6 @@ public class Launcher extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Sensor", sensor.get());
     }
 
     public void runLift(double speed) {

@@ -14,10 +14,13 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.liftIntake;
 import frc.robot.commands.logToSmartDashboard;
+import frc.robot.commands.runIntake;
 import frc.robot.commands.runNeo550;
 import frc.robot.commands.shootNote;
 import frc.robot.constants.SwerveConstants;
@@ -86,6 +89,9 @@ public class RobotContainer {
     //joystick.b().whileTrue(command_joyPointDrive);
     //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     driveController.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
+
+    // manipulateController.x().whileTrue(new runIntake(m_intake, .4, true));
+    // manipulateController.a().whileTrue(new runIntake(m_intake, .4, false));
     
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),

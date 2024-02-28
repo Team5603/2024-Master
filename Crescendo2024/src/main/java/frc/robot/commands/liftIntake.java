@@ -13,6 +13,8 @@ import frc.robot.subsystems.Intake;
 public class liftIntake extends Command {
   Intake m_intake;
   DoubleSupplier speed;
+  Boolean stopPoint;
+
   /** Creates a new liftIntake. */
   public liftIntake(Intake intake, DoubleSupplier inputSpeed) {
     m_intake = intake;
@@ -23,15 +25,23 @@ public class liftIntake extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    stopPoint = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("StopPoint", stopPoint);
     if (speed.getAsDouble() == 0) {
-      m_intake.liftPIDIntake();
+      m_intake.liftPIDIntake(stopPoint);
+      if (!stopPoint) {
+        SmartDashboard.putNumber("Lift Encoder", m_intake.getLiftEncoder());
+      }
+      stopPoint = true;      
       SmartDashboard.putString("IntakeMode", "PID");
     } else {
+      stopPoint = false;
       m_intake.liftIntakeSpd(speed.getAsDouble());
       SmartDashboard.putString("IntakeMode", "Controller");
     }
