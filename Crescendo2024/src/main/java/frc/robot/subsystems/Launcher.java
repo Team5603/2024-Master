@@ -27,7 +27,9 @@ public class Launcher extends SubsystemBase {
         shootLeft.setPosition(0);
         shootRight.setPosition(0);
 
-        shootLeft.setInverted(true);
+        shootRight.setInverted(true);
+        shootLeft.setInverted(false);
+
         liftLeft.setInverted(true);
 
     }

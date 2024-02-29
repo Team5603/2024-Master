@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.angleLauncher;
 import frc.robot.commands.liftIntake;
 import frc.robot.commands.logToSmartDashboard;
 import frc.robot.commands.runIntake;
@@ -85,13 +86,15 @@ public class RobotContainer {
     configureSwerve();
     m_swerve.setDefaultCommand(command_joyDrive);
     m_intake.setDefaultCommand(new liftIntake(m_intake, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0: manipulateController.getLeftY()));
+    m_launcher.setDefaultCommand(new angleLauncher(m_launcher, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
     driveController.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
     //joystick.b().whileTrue(command_joyPointDrive);
     //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     driveController.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
 
-    // manipulateController.x().whileTrue(new runIntake(m_intake, .4, true));
-    // manipulateController.a().whileTrue(new runIntake(m_intake, .4, false));
+    manipulateController.b().whileTrue(new runIntake(m_intake, .4, true));
+    manipulateController.a().whileTrue(new runIntake(m_intake, .4, false));
+    manipulateController.x().whileTrue(new shootNote(m_launcher, .75));
     
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),

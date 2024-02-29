@@ -4,15 +4,17 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Launcher;
 
-public class shootNote extends Command {
+public class angleLauncher extends Command {
   Launcher m_launcher;
-  double speed;
-  /** Creates a new shootNote. */
-  public shootNote(Launcher sentLauncher, double sentSpeed) {
-    m_launcher = sentLauncher;
+  DoubleSupplier speed;
+  /** Creates a new angleLauncher. */
+  public angleLauncher(Launcher sentLaucher, DoubleSupplier sentSpeed) {
+    m_launcher = sentLaucher;
     speed = sentSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_launcher);
@@ -25,13 +27,13 @@ public class shootNote extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcher.shootNote(speed);
+    m_launcher.runLift(speed.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcher.shootNote(0);
+    m_launcher.runLift(0);
   }
 
   // Returns true when the command should end.
