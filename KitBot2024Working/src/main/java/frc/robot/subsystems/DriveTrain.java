@@ -34,7 +34,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void Drive(double LSpeed, double RSpeed) {
-    LF.set(VictorSPXControlMode.PercentOutput, LSpeed * -1);
+    LF.set(VictorSPXControlMode.PercentOutput, LSpeed*-1 );
     RF.set(VictorSPXControlMode.PercentOutput, RSpeed);
   }
 }
