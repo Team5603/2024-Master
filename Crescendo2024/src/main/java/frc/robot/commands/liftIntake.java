@@ -8,19 +8,19 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake.IntakeLift;
 
 public class liftIntake extends Command {
-  Intake m_intake;
+  IntakeLift m_intakeLift;
   DoubleSupplier speed;
   Boolean stopPoint;
 
   /** Creates a new liftIntake. */
-  public liftIntake(Intake intake, DoubleSupplier inputSpeed) {
-    m_intake = intake;
+  public liftIntake(IntakeLift intakeLift, DoubleSupplier inputSpeed) {
+    m_intakeLift = intakeLift;
     speed = inputSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_intake);
+    addRequirements(m_intakeLift);
   }
 
   // Called when the command is initially scheduled.
@@ -34,15 +34,15 @@ public class liftIntake extends Command {
   public void execute() {
     SmartDashboard.putBoolean("StopPoint", stopPoint);
     if (speed.getAsDouble() == 0) {
-      m_intake.liftPIDIntake(stopPoint);
+      m_intakeLift.liftPIDIntake(stopPoint);
       if (!stopPoint) {
-        SmartDashboard.putNumber("Lift Encoder", m_intake.getLiftEncoder());
+        SmartDashboard.putNumber("Lift Encoder", m_intakeLift.getLiftEncoder());
       }
       stopPoint = true;      
       SmartDashboard.putString("IntakeMode", "PID");
     } else {
       stopPoint = false;
-      m_intake.liftIntakeSpd(speed.getAsDouble());
+      m_intakeLift.liftIntakeSpd(speed.getAsDouble() * 0.25);
       SmartDashboard.putString("IntakeMode", "Controller");
     }
   }

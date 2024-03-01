@@ -1,0 +1,30 @@
+{
+  "robotWidth": 0.9,
+  "robotLength": 0.9,
+  "holonomicMode": true,
+  "pathFolders": [
+    "triangle paths",
+    "To Note",
+    "Speaker Path",
+    "Pick up Paths",
+    "Pre Leave",
+    "Leave Left",
+    "Amp Pick Up",
+    "Amp Paths"
+  ],
+  "autoFolders": [
+    "Amp Autons Future",
+    "L Speaker",
+    "L Speaker Future",
+    "M Speaker",
+    "M Speaker Future",
+    "Leave",
+    "R Speaker",
+    "R Speaker Future"
+  ],
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
+  "defaultMaxAngVel": 540.0,
+  "defaultMaxAngAccel": 720.0,
+  "maxModuleSpeed": 4.5
+}

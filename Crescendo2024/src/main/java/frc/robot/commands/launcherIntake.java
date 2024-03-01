@@ -4,41 +4,55 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Launcher.LauncherLift;
+import frc.robot.subsystems.Launcher.Launcher;
 
-public class angleLauncher extends Command {
-  LauncherLift m_launcherLift;
-  DoubleSupplier speed;
-  /** Creates a new angleLauncher. */
-  public angleLauncher(LauncherLift sentLaucher, DoubleSupplier sentSpeed) {
-    m_launcherLift = sentLaucher;
+public class launcherIntake extends Command {
+  Launcher m_launcher;
+  double speed;
+  boolean reverse;
+  boolean end;
+  boolean sensorStatus;
+
+  /** Creates a new launcherIntake. */
+  public launcherIntake(Launcher sentLauncher, double sentSpeed, boolean sentReverse) {
+    m_launcher = sentLauncher;
     speed = sentSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_launcherLift);
+    addRequirements(m_launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    end = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcherLift.runLift(speed.getAsDouble());
+    sensorStatus = m_launcher.getSensor();
+    if (reverse) {
+      m_launcher.runMotors(-speed);
+    } else {
+      m_launcher.runMotors(speed);
+    }
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcherLift.runLift(0);
+    m_launcher.runMotors(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (!sensorStatus) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

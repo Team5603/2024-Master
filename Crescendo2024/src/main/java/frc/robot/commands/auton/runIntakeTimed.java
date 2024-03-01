@@ -2,43 +2,52 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.auton;
 
-import java.util.function.DoubleSupplier;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Launcher.LauncherLift;
+import frc.robot.subsystems.Intake.Intake;
 
-public class angleLauncher extends Command {
-  LauncherLift m_launcherLift;
-  DoubleSupplier speed;
-  /** Creates a new angleLauncher. */
-  public angleLauncher(LauncherLift sentLaucher, DoubleSupplier sentSpeed) {
-    m_launcherLift = sentLaucher;
-    speed = sentSpeed;
+public class runIntakeTimed extends Command {
+  Intake m_intake;
+  double seconds;
+  Timer timer;
+  /** Creates a new runIntakeTimed. */
+  public runIntakeTimed(Intake sentIntake, double sentSeconds) {
+    m_intake = sentIntake;
+    seconds = sentSeconds;
+    timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_launcherLift);
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcherLift.runLift(speed.getAsDouble());
+    m_intake.runIntake(.4, false);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcherLift.runLift(0);
+    timer.stop();
+    timer.reset();
+    m_intake.runIntake(0, false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (timer.get() >= seconds) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
