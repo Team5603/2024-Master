@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7041386162544403,
+      "y": 7.1217400554459225
+    },
+    "rotation": 178.85423716182484
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left to Middle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Left 2 Note"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "L Speaker Future",
+  "choreoAuto": false
+}

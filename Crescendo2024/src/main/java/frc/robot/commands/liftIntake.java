@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.subsystems.Intake.IntakeLift;
 
 public class liftIntake extends Command {
@@ -42,7 +43,7 @@ public class liftIntake extends Command {
       SmartDashboard.putString("IntakeMode", "PID");
     } else {
       stopPoint = false;
-      m_intakeLift.liftIntakeSpd(speed.getAsDouble() * 0.25);
+      m_intakeLift.liftIntakeSpd(speed.getAsDouble() * IntakeConstants.intakeSpeedMultiplier);
       SmartDashboard.putString("IntakeMode", "Controller");
     }
   }

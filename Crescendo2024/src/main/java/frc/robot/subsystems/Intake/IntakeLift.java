@@ -11,6 +11,7 @@ import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.GeneralConstants;
+import frc.robot.constants.GeneralConstants.IntakeConstants;
 
 public class IntakeLift extends SubsystemBase {
   CANSparkMax intakeLift;
@@ -41,9 +42,7 @@ public class IntakeLift extends SubsystemBase {
   }
 
   public void liftIntakeSpd(double speed) {
-    // if (getLiftEncoder() >= 0 && getLiftEncoder() < /*arbitary */100000) {
-    intakeLift.set(speed);
-    // }
+      intakeLift.set(speed);
   }
 
   public void liftIntakeEnc(double encoder) {
@@ -51,7 +50,7 @@ public class IntakeLift extends SubsystemBase {
   }
 
   public void lowerIntakeEnc(double speed) {
-    if (getLiftEncoder() < GeneralConstants.IntakeConstants.liftDownLimit) {
+    if (getLiftEncoder() < GeneralConstants.IntakeConstants.liftDownSetpoint) {
       intakeLift.set(speed);
     }
   }

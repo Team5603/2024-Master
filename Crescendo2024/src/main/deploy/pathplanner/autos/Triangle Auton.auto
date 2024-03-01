@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.93,
+      "y": 4.24
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "triangle chain 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "runNeo550"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "triangle chain 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "runNeo550"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "triangle chain 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "runNeo550"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

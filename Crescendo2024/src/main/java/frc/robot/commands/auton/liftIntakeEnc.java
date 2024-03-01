@@ -29,7 +29,7 @@ public class liftIntakeEnc extends Command {
   @Override
   public void execute() {
     SmartDashboard.putBoolean("Intake Enc Running", true);
-    m_intakeLift.liftIntakeEnc(encoderValue);
+    m_intakeLift.liftIntakeSpd(.5);;
   }
 
   // Called once the command ends or is interrupted.

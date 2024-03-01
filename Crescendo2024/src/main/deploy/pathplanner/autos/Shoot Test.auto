@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.6396709716496354,
-      "y": 6.0
+      "x": 1.522729427225236,
+      "y": 5.484558433504332
     },
     "rotation": 180.0
   },
@@ -28,6 +28,18 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
           }
         }
       ]

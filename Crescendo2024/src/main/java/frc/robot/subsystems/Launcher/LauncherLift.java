@@ -8,7 +8,9 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.GeneralConstants.LauncherConstants;
 
 public class LauncherLift extends SubsystemBase {
 
@@ -27,12 +29,13 @@ public class LauncherLift extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("ThroughBore",getThroughBoreEncoder());
   }
 
   public void runLift(double speed) {
-    liftRight.set(speed);
-    liftLeft.set(speed);
+    if (getThroughBoreEncoder() > LauncherConstants.liftDownLimit || getThroughBoreEncoder() < LauncherConstants.liftUpLimit) {
+      liftLeft.set(speed);
+    }
   }
 
   public double getThroughBoreEncoder() {

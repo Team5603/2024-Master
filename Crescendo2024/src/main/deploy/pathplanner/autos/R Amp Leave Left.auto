@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6807503073695607,
+      "y": 2.15172441740895
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pre Amp Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Left 2 Note"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Amp Autons Future",
+  "choreoAuto": false
+}

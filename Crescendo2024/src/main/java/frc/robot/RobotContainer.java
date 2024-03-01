@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.fasterxml.jackson.core.sym.Name;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -23,6 +24,7 @@ import frc.robot.commands.logToSmartDashboard;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.shootNote;
 import frc.robot.commands.auton.liftIntakeEnc;
+import frc.robot.commands.auton.releaseNoteShootNote;
 import frc.robot.commands.auton.finals.lowerIntakeRunIntake;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
@@ -124,6 +126,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("lowerIntakeRunIntake", new lowerIntakeRunIntake(m_intakeLift, m_intake));
     NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
     NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeed));
+    NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, IntakeConstants.liftUpLimit));
+    NamedCommands.registerCommand("shootNote", new releaseNoteShootNote(m_intake, m_launcher));
 
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent())
@@ -133,7 +137,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("New Auto");
+    return new PathPlannerAuto("Shoot Test");
   }
 
   // public Command scheduleAprilTagPath() {

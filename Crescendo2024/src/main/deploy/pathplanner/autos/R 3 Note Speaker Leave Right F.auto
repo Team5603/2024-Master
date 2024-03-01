@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6807503073695607,
+      "y": 2.15172441740895
+    },
+    "rotation": 178.85423716182484
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right to Middle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Right "
+          }
+        }
+      ]
+    }
+  },
+  "folder": "R Speaker Future",
+  "choreoAuto": false
+}

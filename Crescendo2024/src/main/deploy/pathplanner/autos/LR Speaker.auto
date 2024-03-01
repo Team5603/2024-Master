@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7158327706968803,
+      "y": 7.110045901003483
+    },
+    "rotation": 179.00350187018492
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pre Speaker Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Right "
+          }
+        }
+      ]
+    }
+  },
+  "folder": "L Speaker",
+  "choreoAuto": false
+}

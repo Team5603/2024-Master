@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6807503073695607,
+      "y": 2.15172441740895
+    },
+    "rotation": -179.53545896940477
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right to Left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Left Left Note"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "R Speaker Future",
+  "choreoAuto": false
+}
