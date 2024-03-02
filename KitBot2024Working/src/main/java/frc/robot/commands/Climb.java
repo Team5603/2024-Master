@@ -44,7 +44,7 @@ public class Climb extends Command {
         
         }
         StopEnlightenment = true;
-        SmartDashboard.putString("CLIMB MODE", "PID");
+        SmartDashboard.putString("CLIMB MODE", "MAINTAINING");
       }else{
 
         StopEnlightenment = false;

@@ -11,6 +11,8 @@ import frc.robot.commands.Shootyshoot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -32,6 +34,8 @@ public class RobotContainer {
   private final Climber m_Climber;
   private CommandXboxController playerController;
   private Joystick LJoy, RJoy;
+  private UsbCamera DASHCAM = CameraServer.startAutomaticCapture();
+  
   // private JoystickButton ShootButton;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -50,9 +54,13 @@ public class RobotContainer {
      () -> (Math.abs(LJoy.getRawAxis(1))<0.18)?0:LJoy.getRawAxis(1),
      () -> (Math.abs(RJoy.getRawAxis(1))<0.1)?0:RJoy.getRawAxis(1)));
     playerController.b().whileTrue(new Shootyshoot(m_shooter, 1, .3));
-    playerController.x().whileTrue( new Shootyshoot(m_shooter, 0.3, .3));
+    playerController.x().whileTrue( new Shootyshoot(m_shooter, 0.34, .3));
     playerController.a().whileTrue(new InOut(m_shooter, -0.25));
     m_Climber.setDefaultCommand(new Climb(m_Climber, ()->Math.abs(playerController.getRawAxis(1))<.1?0:playerController.getRawAxis(1)));
+    
+    DASHCAM.setResolution(320, 240);
+    DASHCAM.setFPS(10);
+    
     // m_shooter.setDefaultCommand(new Shootyshoot(m_shooter, () ->
     // playerController.getRawAxis(1)));
 
