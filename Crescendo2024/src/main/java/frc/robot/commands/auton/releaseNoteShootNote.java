@@ -26,7 +26,7 @@ public class releaseNoteShootNote extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new runIntake(sentIntake, IntakeConstants.intakeSpeed, true),
-      new shootNote(sentLauncher, LauncherConstants.launcherSpeed)
+      new shootNoteTimed(sentLauncher, LauncherConstants.launcherSpeedLauncher, .75)
     );
   }
 }

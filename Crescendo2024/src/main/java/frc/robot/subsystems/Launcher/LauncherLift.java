@@ -6,17 +6,22 @@ package frc.robot.subsystems.Launcher;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.GeneralConstants.LauncherConstants;
 
 public class LauncherLift extends SubsystemBase {
 
-  private static final SparkMaxAlternateEncoder.Type alternateEncoderType = SparkMaxAlternateEncoder.Type.kQuadrature;
+  private static final SparkAbsoluteEncoder.Type absoluteEncoderType = SparkAbsoluteEncoder.Type.kDutyCycle;
   private static int cPR = 8192;
   CANSparkMax liftRight, liftLeft;
+  DigitalInput limitSwitchDown;
 
   /** Creates a new LauncherLift. */
   public LauncherLift() {
@@ -24,21 +29,58 @@ public class LauncherLift extends SubsystemBase {
     liftLeft = new CANSparkMax(12, MotorType.kBrushless);
     liftRight = new CANSparkMax(9, MotorType.kBrushless);
 
-    liftLeft.setInverted(true);
+    limitSwitchDown = new DigitalInput(0);
+
+    liftLeft.restoreFactoryDefaults();
+    liftRight.restoreFactoryDefaults();
+    
+    liftLeft.setInverted(false);
+    liftRight.setInverted(true);
+
+    liftLeft.setIdleMode(IdleMode.kBrake);
+    liftRight.setIdleMode(IdleMode.kBrake);
+
+    getThroughBoreEncoderRaw().setZeroOffset(LauncherConstants.absoluteEncoderZeroPoint);
+    getThroughBoreEncoderRaw().setInverted(false);
+
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ThroughBore",getThroughBoreEncoder());
+    SmartDashboard.putNumber("ThroughBore", getThroughBoreEncoder());
+
+    SmartDashboard.putBoolean("Lift Limit", getLimitSwitch());
+
+    SmartDashboard.putNumber("Left Motor Speed", liftLeft.get());
+    SmartDashboard.putNumber("Right Motor Speed", liftRight.get());
   }
 
   public void runLift(double speed) {
-    if (getThroughBoreEncoder() > LauncherConstants.liftDownLimit || getThroughBoreEncoder() < LauncherConstants.liftUpLimit) {
-      liftLeft.set(speed);
+    double finalSpeed = speed;
+    
+    if (speed < 0) {
+      if (getThroughBoreEncoder() >= LauncherConstants.liftDownLimitLow && getThroughBoreEncoder() < LauncherConstants.liftDownLimitHigh || getLimitSwitch()) {
+        finalSpeed = 0;
+      }
+    } else if (speed > 0) {
+      if (getThroughBoreEncoder() >= LauncherConstants.liftUpLimitLow && getThroughBoreEncoder() < LauncherConstants.liftUpLimitHigh) {
+        finalSpeed = 0;
+      }
     }
+    liftLeft.set(finalSpeed);
+    liftRight.set(finalSpeed);
   }
 
   public double getThroughBoreEncoder() {
-    return liftLeft.getAlternateEncoder(alternateEncoderType, cPR).getPosition();
+    return liftRight.getAbsoluteEncoder(absoluteEncoderType).getPosition();
   }
+
+  private SparkAbsoluteEncoder getThroughBoreEncoderRaw() {
+    return liftRight.getAbsoluteEncoder(absoluteEncoderType);
+  }
+
+  public boolean getLimitSwitch() {
+    return !limitSwitchDown.get();
+  }
+  
 }

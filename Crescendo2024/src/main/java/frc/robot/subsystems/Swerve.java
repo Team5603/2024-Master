@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -15,12 +16,16 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.constants.SwerveConstants;
@@ -33,6 +38,26 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     private double m_lastSimTime;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
+
+    public Swerve(SwerveDrivetrainConstants swerveConstants, double odometryUpdateFrequency,
+            SwerveModuleConstants... modules) {
+        super(swerveConstants, odometryUpdateFrequency, modules);
+        configurePathPlanner();
+        if (Utils.isSimulation())
+            startSimThread();
+    }
+    
+
+    public Swerve(SwerveDrivetrainConstants swerveConstants, SwerveModuleConstants... modules) {
+        super(swerveConstants, modules);
+        configurePathPlanner();
+        if (Utils.isSimulation())
+            startSimThread();
+    }
+
+    @Override
+    public void periodic() {
+    }
 
     public ChassisSpeeds getCurrentChassisSpeeds() {
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
@@ -55,7 +80,17 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
                         SwerveConstants.kSpeedAt12VoltsMps,
                         driveBaseRadius,
                         new ReplanningConfig()),
-                () -> false, // Change this if the path needs to be flipped on red vs blue
+                () -> {
+                    // Boolean supplier that controls when the path will be mirrored for the red alliance
+                    // This will flip the path being followed to the red side of the field.
+                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+          
+                    var alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent()) {
+                        return alliance.get() == DriverStation.Alliance.Red;
+                    }
+                    return false;
+                }, // Change this if the path needs to be flipped on red vs blue
                 this); // Subsystem for requirements
     }
 
@@ -74,19 +109,18 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
         m_simNotifier.startPeriodic(kSimLoopPeriod);
     }
 
-    public Swerve(SwerveDrivetrainConstants swerveConstants, double odometryUpdateFrequency,
-            SwerveModuleConstants... modules) {
-        super(swerveConstants, odometryUpdateFrequency, modules);
-        configurePathPlanner();
-        if (Utils.isSimulation())
-            startSimThread();
+    public SwerveModulePosition[] getModulePositions() {
+    return new SwerveModulePosition[] {
+        Modules[0].getPosition(true),
+        Modules[1].getPosition(true),
+        Modules[2].getPosition(true),
+        Modules[3].getPosition(true)
+    };
     }
 
-    public Swerve(SwerveDrivetrainConstants swerveConstants, SwerveModuleConstants... modules) {
-        super(swerveConstants, modules);
-        configurePathPlanner();
-        if (Utils.isSimulation())
-            startSimThread();
+    public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(
+    m_yawGetter.getValueAsDouble(), m_fieldRelativeOffset);
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
@@ -133,7 +167,8 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             double accelerationConstraint,
             double RotationConstraint,
             double rotationAccelerationConstraint) {
-        Pose2d targetPose = new Pose2d(tag.xPos, tag.yPos, Rotation2d.fromDegrees((tag.direction) < 0 ? Math.abs(tag.direction) - 180: 180 - Math.abs(tag.direction)));
+        Pose2d targetPose = new Pose2d(tag.xPos, tag.yPos, Rotation2d
+                .fromDegrees((tag.direction) < 0 ? Math.abs(tag.direction) - 180 : 180 - Math.abs(tag.direction)));
 
         // Create the constraints the use while pathfinding
         PathConstraints constraints = new PathConstraints(speedConstraint, accelerationConstraint,

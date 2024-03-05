@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.21,
-        "y": 6.981410202139999
+        "y": 6.981410202136645
       },
       "prevControl": {
-        "x": 2.1985564345786677,
-        "y": 5.2774048405239675
+        "x": 2.19830584555756,
+        "y": 6.993104356579085
       },
       "nextControl": null,
       "isLocked": false,
@@ -40,7 +40,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 180.0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "To Note",

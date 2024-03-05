@@ -9,11 +9,19 @@ public class GeneralConstants {
         public static final double intakeSpeedMultiplier = 0.25;
     }
     public class LauncherConstants {
-        // placeholder
         public static final int angleToEncoderTranslation = 4;
-        public static final double launcherSpeed = 0.75;
-        public static final double launcherIntakeSpeed = .5;
-        public static final double liftUpLimit = 405545;
-        public static final double liftDownLimit = 0;
+        public static final double launcherSpeedLauncher = 0.75;
+        public static final double launcherSpeedAmp = .3;
+        public static final double launcherIntakeSpeed = .225;
+        public static final double liftDownLimitLow = .75;
+        public static final double liftDownLimitHigh = 1;
+        public static final double liftUpLimitLow = .25;
+                                                                                                   
+        public static final double liftUpLimitHigh = 0.75;
+        public static final double absoluteEncoderZeroPoint = 0.243;
+    }
+    public class ClimbConstants {
+        public static final double extendSpeedMultiplier = 1;
+        public static final double extendEncoderLimit = 10;
     }
 }
