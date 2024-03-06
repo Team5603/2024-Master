@@ -6,13 +6,17 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.GeneralConstants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
     CANSparkMax intake;
 
     public Intake () {
-        // placeholder values !!!!!!]
-        intake = new CANSparkMax(38, MotorType.kBrushless);
+        intake = new CANSparkMax(IntakeConstants.intakeMotor, MotorType.kBrushless);
+
+        intake.restoreFactoryDefaults();
+
+        intake.setInverted(false);
     }
     @Override
     public void periodic() {

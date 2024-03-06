@@ -26,10 +26,10 @@ public class LauncherLift extends SubsystemBase {
   /** Creates a new LauncherLift. */
   public LauncherLift() {
 
-    liftLeft = new CANSparkMax(12, MotorType.kBrushless);
-    liftRight = new CANSparkMax(9, MotorType.kBrushless);
+    liftLeft = new CANSparkMax(LauncherConstants.liftLeftMotor, MotorType.kBrushless);
+    liftRight = new CANSparkMax(LauncherConstants.liftRightMotor, MotorType.kBrushless);
 
-    limitSwitchDown = new DigitalInput(0);
+    limitSwitchDown = new DigitalInput(LauncherConstants.liftLimitSwitch);
 
     liftLeft.restoreFactoryDefaults();
     liftRight.restoreFactoryDefaults();

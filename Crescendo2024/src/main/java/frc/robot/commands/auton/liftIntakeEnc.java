@@ -42,7 +42,7 @@ public class liftIntakeEnc extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_intakeLift.getLiftEncoder() >= encoderValue) {
+    if (m_intakeLift.getLiftThroughBoreEncoder() >= encoderValue) {
       return true;
     } else {
       return false;

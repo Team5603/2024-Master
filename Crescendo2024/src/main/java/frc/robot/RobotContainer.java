@@ -20,15 +20,22 @@ import frc.robot.commands.liftLauncher;
 import frc.robot.commands.launcherIntake;
 import frc.robot.commands.liftIntake;
 import frc.robot.commands.logToSmartDashboard;
+import frc.robot.commands.maintainIntakeLift;
+import frc.robot.commands.releaseNoteShootNote;
+import frc.robot.commands.runBothArms;
 import frc.robot.commands.runIntake;
+import frc.robot.commands.runLeftArm;
+import frc.robot.commands.runRightArm;
 import frc.robot.commands.shootNote;
 import frc.robot.commands.auton.liftIntakeEnc;
-import frc.robot.commands.auton.releaseNoteShootNote;
+import frc.robot.commands.auton.releaseNoteShootNoteAuton;
 import frc.robot.commands.auton.finals.lowerIntakeRunIntake;
 import frc.robot.constants.SwerveConstants;
+import frc.robot.constants.GeneralConstants.ArmConstants;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.constants.GeneralConstants.LauncherConstants;
 import frc.robot.constants.VisionConstants.TagData;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Intake.Intake;
@@ -45,6 +52,7 @@ public class RobotContainer {
   public static final Launcher m_launcher = new Launcher();
   public static final LauncherLift m_launcherLift = new LauncherLift();
   public static final Vision m_vision = new Vision();
+  public static final Arm m_arm = new Arm();
 
   private static SwerveRequest.FieldCentric swerve_drive;
   private static SwerveRequest.SwerveDriveBrake swerve_brake;
@@ -67,8 +75,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("lowerIntakeRunIntake", new lowerIntakeRunIntake(m_intakeLift, m_intake));
     NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
     NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
-    NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, IntakeConstants.liftUpLimit));
-    NamedCommands.registerCommand("shootNote", new releaseNoteShootNote(m_intake, m_launcher));
+    NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, 0));
+    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher));
+    NamedCommands.registerCommand("lowerIntake", new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
+    NamedCommands.registerCommand("runIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
 
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent())
@@ -106,8 +116,11 @@ public class RobotContainer {
   private void configureBindings() {
     configureSwerve();
     m_swerve.setDefaultCommand(command_joyDrive);
-    m_intakeLift.setDefaultCommand(new liftIntake(m_intakeLift, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0: manipulateController.getLeftY()));
-    m_launcherLift.setDefaultCommand(new liftLauncher(m_launcherLift, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: -manipulateController.getRightY()));
+    //m_intakeLift.setDefaultCommand(new liftIntake(m_intakeLift, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
+    m_intakeLift.setDefaultCommand(new maintainIntakeLift(m_intakeLift));
+    m_arm.setDefaultCommand(new runBothArms(m_arm, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
+    m_launcherLift.setDefaultCommand(new liftLauncher(m_launcherLift, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0: -manipulateController.getLeftY()));
+
     driveController.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
     //joystick.b().whileTrue(command_joyPointDrive);
     //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
@@ -117,8 +130,19 @@ public class RobotContainer {
     manipulateController.a().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
     manipulateController.x().whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedAmp));
     manipulateController.axisGreaterThan(3,.1).whileTrue(new releaseNoteShootNote(m_intake, m_launcher));
-    manipulateController.y().onTrue(new releaseNoteShootNote(m_intake, m_launcher));
-    manipulateController.button(5).whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeed, true));
+    manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
+    manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
+
+    //manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() > .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
+    //manipulateController.y().onTrue(new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
+
+    manipulateController.povUp().whileTrue(new runLeftArm(m_arm, ArmConstants.extendSpeedMultiplier));
+    manipulateController.povDown().whileTrue(new runLeftArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
+
+    manipulateController.povRight().whileTrue(new runRightArm(m_arm, ArmConstants.extendSpeedMultiplier));
+    manipulateController.povLeft().whileTrue(new runRightArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
+
+
     
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),

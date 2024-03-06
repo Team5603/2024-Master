@@ -7,27 +7,30 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 
-import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.GeneralConstants.ClimbConstants;
+import frc.robot.constants.GeneralConstants.ArmConstants;
 
-public class arm extends SubsystemBase {
+public class Arm extends SubsystemBase {
   CANSparkMax leftArm, rightArm;
   DigitalInput leftArmLimitSwitch, rightArmLimitSwitch;
   /** Creates a new arm. */
-  public arm() {
+  public Arm() {
 
-    leftArm = new CANSparkMax(41, CANSparkMax.MotorType.kBrushless);
-    rightArm = new CANSparkMax(39, CANSparkMax.MotorType.kBrushless);
+    leftArm = new CANSparkMax(ArmConstants.leftArmMotor, CANSparkMax.MotorType.kBrushless);
+    rightArm = new CANSparkMax(ArmConstants.rightArmMotor, CANSparkMax.MotorType.kBrushless);
 
-    leftArmLimitSwitch = new DigitalInput(3);
-    rightArmLimitSwitch = new DigitalInput(4);
+    leftArmLimitSwitch = new DigitalInput(ArmConstants.leftArmLimitSwitch);
+    rightArmLimitSwitch = new DigitalInput(ArmConstants.rightArmLimitSwitch);
 
     leftArm.restoreFactoryDefaults();
     rightArm.restoreFactoryDefaults();
 
-    leftArm.setInverted(false);
+    leftArm.getEncoder().setPosition(0);
+    rightArm.getEncoder().setPosition(0);
+
+    leftArm.setInverted(true);
     rightArm.setInverted(false);
 
     leftArm.setIdleMode(IdleMode.kBrake);
@@ -37,19 +40,21 @@ public class arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Left Motor Encoder", leftArm.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Motor Encoder", rightArm.getEncoder().getPosition());
   }
 
   public void runArmsTogether(double speed) {
     double finalSpeed = speed;
 
-    if (speed < 0) {
+    if (speed > 0) {
       if (getLimitSwitch("both")) {
         finalSpeed = 0;
       }
-    } else if(speed > 0) {
-      if (getLeftEncoder() > ClimbConstants.extendEncoderLimit) {
-        finalSpeed = 0;
-      }
+    } else if(speed < 0) {
+      // if (getLeftEncoder() > ArmConstants.extendEncoderLimit) {
+      //   finalSpeed = 0;
+      // }
     }
     leftArm.set(finalSpeed);
     rightArm.set(finalSpeed);
@@ -57,31 +62,11 @@ public class arm extends SubsystemBase {
 
   public void runLeftArm(double speed) {
     double finalSpeed = speed;
-
-    if (speed < 0) {
-      if (getLimitSwitch("both")) {
-        finalSpeed = 0;
-      }
-    } else if(speed > 0) {
-      if (getLeftEncoder() > ClimbConstants.extendEncoderLimit) {
-        finalSpeed = 0;
-      }
-    }
     leftArm.set(finalSpeed);
   }
 
   public void runRightArm(double speed) {
     double finalSpeed = speed;
-
-    if (speed < 0) {
-      if (getLimitSwitch("both")) {
-        finalSpeed = 0;
-      }
-    } else if(speed > 0) {
-      if (getLeftEncoder() > ClimbConstants.extendEncoderLimit) {
-        finalSpeed = 0;
-      }
-    }
     rightArm.set(finalSpeed);
   }
 

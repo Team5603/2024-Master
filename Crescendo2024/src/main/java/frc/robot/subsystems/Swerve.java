@@ -42,7 +42,9 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     public Swerve(SwerveDrivetrainConstants swerveConstants, double odometryUpdateFrequency,
             SwerveModuleConstants... modules) {
         super(swerveConstants, odometryUpdateFrequency, modules);
+        
         configurePathPlanner();
+        m_odometry.addVisionMeasurement(null, odometryUpdateFrequency, null);
         if (Utils.isSimulation())
             startSimThread();
     }
@@ -55,9 +57,10 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
             startSimThread();
     }
 
-    @Override
-    public void periodic() {
-    }
+    // @Override
+    // public void periodic() {
+    //     m_odometry.update(m_pigeon2.getRotation2d(), getModulePositions());
+    // }
 
     public ChassisSpeeds getCurrentChassisSpeeds() {
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);

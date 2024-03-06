@@ -15,17 +15,17 @@ import frc.robot.subsystems.Intake.IntakeLift;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class lowerIntakeRunIntake extends ParallelCommandGroup {
-  IntakeLift m_IntakeLift;
-  Intake m_Intake;
+  IntakeLift m_intakeLift;
+  Intake m_intake;
   /** Creates a new lowerIntakeRunIntake. */
   public lowerIntakeRunIntake(IntakeLift sentIntakeLift, Intake sentIntake) {
-    m_IntakeLift = sentIntakeLift;
-    m_Intake = sentIntake;
+    m_intakeLift = sentIntakeLift;
+    m_intake = sentIntake;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new liftIntakeEnc(m_IntakeLift, IntakeConstants.liftDownSetpoint),
-      new runIntakeTimed(m_Intake, 3)
+      new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint),
+      new runIntakeTimed(m_intake, 3)
     );
   }
 }

@@ -13,11 +13,11 @@ import frc.robot.subsystems.Intake.IntakeLift;
 
 public class liftIntake extends Command {
   IntakeLift m_intakeLift;
-  DoubleSupplier speed;
+  double speed;
   Boolean stopPoint;
 
   /** Creates a new liftIntake. */
-  public liftIntake(IntakeLift intakeLift, DoubleSupplier inputSpeed) {
+  public liftIntake(IntakeLift intakeLift, double inputSpeed) {
     m_intakeLift = intakeLift;
     speed = inputSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,8 +34,7 @@ public class liftIntake extends Command {
   @Override
   public void execute() {
     SmartDashboard.putBoolean("StopPoint", stopPoint);
-    if (speed.getAsDouble() == 0) {
-      m_intakeLift.liftPIDIntake(stopPoint);
+    if (speed == 0) {
       if (!stopPoint) {
         SmartDashboard.putNumber("Lift Encoder", m_intakeLift.getLiftEncoder());
       }
@@ -43,14 +42,16 @@ public class liftIntake extends Command {
       SmartDashboard.putString("IntakeMode", "PID");
     } else {
       stopPoint = false;
-      m_intakeLift.liftIntakeSpd(speed.getAsDouble() * IntakeConstants.intakeSpeedMultiplier);
+      m_intakeLift.liftIntakeSpd(speed * IntakeConstants.intakeSpeedMultiplier);
       SmartDashboard.putString("IntakeMode", "Controller");
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_intakeLift.liftIntakeSpd(0);
+  }
 
   // Returns true when the command should end.
   @Override
