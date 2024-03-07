@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.liftLauncher;
 import frc.robot.commands.launcherIntake;
 import frc.robot.commands.liftIntake;
+import frc.robot.commands.liftIntakeDownOrUp;
 import frc.robot.commands.logToSmartDashboard;
 import frc.robot.commands.maintainIntakeLift;
 import frc.robot.commands.releaseNoteShootNote;
@@ -26,9 +27,11 @@ import frc.robot.commands.runBothArms;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.runLeftArm;
 import frc.robot.commands.runRightArm;
+import frc.robot.commands.shooterIntakeJoystick;
 import frc.robot.commands.shootNote;
 import frc.robot.commands.auton.liftIntakeEnc;
 import frc.robot.commands.auton.releaseNoteShootNoteAuton;
+import frc.robot.commands.auton.runIntakeTimed;
 import frc.robot.commands.auton.finals.lowerIntakeRunIntake;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.GeneralConstants.ArmConstants;
@@ -59,7 +62,7 @@ public class RobotContainer {
   private static SwerveRequest.RobotCentric swerve_forwardStraight;
   private static SwerveRequest.PointWheelsAt swerve_point;
 
-  private double maxSpeed = 3; // 6 meters/sec desired top speed
+  private double maxSpeed = 6; // 6 meters/sec desired top speed
   private double maxAngularRate = 1.5 * Math.PI; // 3/4 a rotation/sec max angular velocity. 1.5*pi as default
 
   // set up bindings for control of swerve drive platform
@@ -71,14 +74,14 @@ public class RobotContainer {
   private static Command command_runAuto;
 
   public RobotContainer() {
-    NamedCommands.registerCommand("logToSmartDashboard", new logToSmartDashboard());
-    NamedCommands.registerCommand("lowerIntakeRunIntake", new lowerIntakeRunIntake(m_intakeLift, m_intake));
-    NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
-    NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
-    NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, 0));
+    // NamedCommands.registerCommand("logToSmartDashboard", new logToSmartDashboard());
+    // NamedCommands.registerCommand("lowerIntakeRunIntake", new lowerIntakeRunIntake(m_intakeLift, m_intake));
+    // NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
+    // NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
+    // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, 0));
     NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher));
-    NamedCommands.registerCommand("lowerIntake", new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
-    NamedCommands.registerCommand("runIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
+    NamedCommands.registerCommand("moveIntake", new liftIntakeDownOrUp(m_intakeLift));
+    NamedCommands.registerCommand("runIntake", new runIntakeTimed(m_intake, 1, false));
 
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent())
@@ -118,23 +121,35 @@ public class RobotContainer {
     m_swerve.setDefaultCommand(command_joyDrive);
     //m_intakeLift.setDefaultCommand(new liftIntake(m_intakeLift, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
     m_intakeLift.setDefaultCommand(new maintainIntakeLift(m_intakeLift));
-    m_arm.setDefaultCommand(new runBothArms(m_arm, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
+    //m_launcher.setDefaultCommand(new shooterIntakeJoystick(m_intake, m_launcher, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
+    //m_arm.setDefaultCommand(new runBothArms(m_arm, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
     m_launcherLift.setDefaultCommand(new liftLauncher(m_launcherLift, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0: -manipulateController.getLeftY()));
 
     driveController.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
     //joystick.b().whileTrue(command_joyPointDrive);
     //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     driveController.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
+    
+
 
     manipulateController.b().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
     manipulateController.a().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
-    manipulateController.x().whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedAmp));
-    manipulateController.axisGreaterThan(3,.1).whileTrue(new releaseNoteShootNote(m_intake, m_launcher));
+    //manipulateController.x().whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedAmp));
+    manipulateController.x().whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeed, false));
+    manipulateController.axisGreaterThan(2, .1).whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeedSlower, true));
+
+    manipulateController.axisGreaterThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
+    manipulateController.axisLessThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
+
+    manipulateController.axisGreaterThan(3,.1).whileTrue(new releaseNoteShootNote(m_intake, m_launcher, .2));
     manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
     manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
 
     //manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() > .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
-    //manipulateController.y().onTrue(new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
+    manipulateController.y().onTrue(new liftIntakeDownOrUp(m_intakeLift));
+
+    driveController.axisGreaterThan(3, .2).whileTrue(new runBothArms(m_arm, ArmConstants.extendSpeedMultiplier));
+    driveController.axisGreaterThan(2, .2).whileTrue(new runBothArms(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
 
     manipulateController.povUp().whileTrue(new runLeftArm(m_arm, ArmConstants.extendSpeedMultiplier));
     manipulateController.povDown().whileTrue(new runLeftArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));

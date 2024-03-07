@@ -6,13 +6,13 @@ public class GeneralConstants {
         public static final int liftMotor = 40;
         public static final int liftLimitSwitch = 9;
 
-        public static final double liftDownSetpoint = 0.510;
-        public static final double liftDownLimitLow = 0.510;
+        public static final double liftDownSetpoint = 0.507;
+        public static final double liftDownLimitLow = 0.507;
         public static final double liftDownLimitHigh = 0.75;
         public static final double liftUpLimitLow = .76;
         public static final double liftUpLimitHigh = 1;
-        public static final double intakeSpeed = 0.4;
-        public static final double intakeSpeedMultiplier = 0.25;
+        public static final double intakeSpeed = 0.5;
+        public static final double intakeLiftSpeedMultiplier = 0.35;
 
         public static final double absoluteEncoderZeroPoint = 0.671;
     }
@@ -29,6 +29,8 @@ public class GeneralConstants {
         public static final double launcherSpeedLauncher = 0.75;
         public static final double launcherSpeedAmp = .3;
         public static final double launcherIntakeSpeed = .225;
+        public static final double launcherIntakeSpeedSlower = .15;
+
         public static final double liftDownLimitLow = .75;
         public static final double liftDownLimitHigh = 1;
         public static final double liftUpLimitLow = .25;

@@ -25,7 +25,7 @@ public class lowerIntakeRunIntake extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint),
-      new runIntakeTimed(m_intake, 3)
+      new runIntakeTimed(m_intake, 3, false)
     );
   }
 }

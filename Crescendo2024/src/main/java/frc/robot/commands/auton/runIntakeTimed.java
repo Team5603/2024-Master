@@ -11,11 +11,13 @@ import frc.robot.subsystems.Intake.Intake;
 public class runIntakeTimed extends Command {
   Intake m_intake;
   double seconds;
+  boolean reverse;
   Timer timer;
   /** Creates a new runIntakeTimed. */
-  public runIntakeTimed(Intake sentIntake, double sentSeconds) {
+  public runIntakeTimed(Intake sentIntake, double sentSeconds, boolean sentReverse) {
     m_intake = sentIntake;
     seconds = sentSeconds;
+    reverse = sentReverse;
     timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intake);
@@ -30,7 +32,7 @@ public class runIntakeTimed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.runIntake(.4, false);
+    m_intake.runIntake(.4, reverse);
   }
 
   // Called once the command ends or is interrupted.

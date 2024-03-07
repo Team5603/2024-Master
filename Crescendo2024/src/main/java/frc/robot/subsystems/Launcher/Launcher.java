@@ -37,6 +37,6 @@ public class Launcher extends SubsystemBase {
     }
 
     public boolean getSensor() {
-        return sensor.get();
+        return !sensor.get();
     }
 }

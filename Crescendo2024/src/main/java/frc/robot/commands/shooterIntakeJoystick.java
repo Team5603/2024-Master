@@ -4,52 +4,40 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.GeneralConstants.IntakeConstants;
-import frc.robot.constants.GeneralConstants.LauncherConstants;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Launcher.Launcher;
 
-public class releaseNoteShootNote extends Command {
+public class shooterIntakeJoystick extends Command {
   Intake m_intake;
   Launcher m_launcher;
-  double delay;
-  Timer m_timer;
-  /** Creates a new releaseNoteShootNote. */
-  public releaseNoteShootNote(Intake sentIntake, Launcher sentLauncher, double sentDelay) {
+  DoubleSupplier speed;
+  /** Creates a new runIntakeJoystick. */
+  public shooterIntakeJoystick(Intake sentIntake, Launcher sentLauncher, DoubleSupplier sentSpeed) {
     m_intake = sentIntake;
     m_launcher = sentLauncher;
-    delay = sentDelay;
-    m_timer = new Timer();
+    speed = sentSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intake, m_launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_launcher.runMotors(LauncherConstants.launcherSpeedLauncher);
+    m_launcher.runMotors((-1 * speed.getAsDouble()) * .2);
 
-    if (m_timer.get() > .2) {
-      m_intake.runIntake(IntakeConstants.intakeSpeed, true);
-    }
+    m_intake.runIntake((speed.getAsDouble()) * .2, false);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_launcher.runMotors(0);
-    m_intake.runIntake(0, false);
-    m_timer.stop();
-    m_timer.reset();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

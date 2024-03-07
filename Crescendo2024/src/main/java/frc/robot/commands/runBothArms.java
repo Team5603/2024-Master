@@ -12,9 +12,9 @@ import frc.robot.subsystems.Arm;
 
 public class runBothArms extends Command {
   Arm m_arm;
-  DoubleSupplier speed;
+  double speed;
   /** Creates a new liftArms. */
-  public runBothArms(Arm sentArm, DoubleSupplier sentSpeed) {
+  public runBothArms(Arm sentArm, double sentSpeed) {
     m_arm = sentArm;
     speed = sentSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,13 +28,14 @@ public class runBothArms extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("Arm Status", "Both Arms Running:" + speed.getAsDouble());
-    m_arm.runArmsTogether(speed.getAsDouble());
+    SmartDashboard.putString("Arm Status", "Both Arms Running:" + speed/* .getAsDouble()*/);
+    m_arm.runArmsTogether(speed/*.getAsDouble()*/);
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once the command ends or is interrupted. Evan is a goober
   @Override
   public void end(boolean interrupted) {
+    m_arm.runArmsTogether(0);
   }
 
   // Returns true when the command should end.

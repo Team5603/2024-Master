@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "lowerIntake"
+            "name": "moveIntake"
           }
         },
         {
@@ -34,6 +34,18 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
           }
         }
       ]

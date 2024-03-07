@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.subsystems.Intake.Intake;
@@ -14,8 +15,8 @@ public class launcherIntake extends Command {
   Intake m_intake;
   double speed;
   boolean reverse;
-  boolean end;
   boolean sensorStatus;
+  Timer m_timer;
 
   /** Creates a new launcherIntake. */
   public launcherIntake(Launcher sentLauncher, Intake sentIntake, double sentSpeed, boolean sentReverse) {
@@ -23,6 +24,7 @@ public class launcherIntake extends Command {
     m_intake = sentIntake;
     speed = sentSpeed;
     reverse = sentReverse;
+    m_timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_launcher, m_intake);
   }
@@ -30,36 +32,46 @@ public class launcherIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    end = false;
+    m_timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    sensorStatus = m_launcher.getSensor();
-    if (reverse) {
-      m_launcher.runMotors(-speed);
-    } else {
-      m_launcher.runMotors(speed);
-    }
+      sensorStatus = m_launcher.getSensor();
+      if (sensorStatus) {
+        m_timer.start();
+      } else {
+        m_timer.stop();
+        m_timer.reset();
+      }
 
-    m_intake.runIntake(IntakeConstants.intakeSpeed, true);
-    
+      if (reverse) {
+        m_launcher.runMotors(-speed);
+      } else {
+        m_launcher.runMotors(speed);
+      }
+
+      m_intake.runIntake(IntakeConstants.intakeSpeed, true);
+      
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_launcher.runMotors(0);
+    m_intake.runIntake(0, false);
+    m_timer.stop();
+    m_timer.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!sensorStatus) {
-      return false;
-    } else {
+    if (m_timer.get() > .01) {
       return true;
+    } else {
+      return false;
     }
   }
 }

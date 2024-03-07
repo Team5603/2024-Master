@@ -14,7 +14,6 @@ import frc.robot.subsystems.Intake.IntakeLift;
 public class liftIntake extends Command {
   IntakeLift m_intakeLift;
   double speed;
-  Boolean stopPoint;
 
   /** Creates a new liftIntake. */
   public liftIntake(IntakeLift intakeLift, double inputSpeed) {
@@ -27,24 +26,12 @@ public class liftIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    stopPoint = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putBoolean("StopPoint", stopPoint);
-    if (speed == 0) {
-      if (!stopPoint) {
-        SmartDashboard.putNumber("Lift Encoder", m_intakeLift.getLiftEncoder());
-      }
-      stopPoint = true;      
-      SmartDashboard.putString("IntakeMode", "PID");
-    } else {
-      stopPoint = false;
-      m_intakeLift.liftIntakeSpd(speed * IntakeConstants.intakeSpeedMultiplier);
-      SmartDashboard.putString("IntakeMode", "Controller");
-    }
+      m_intakeLift.liftIntakeSpd(speed * IntakeConstants.intakeLiftSpeedMultiplier);
   }
 
   // Called once the command ends or is interrupted.
