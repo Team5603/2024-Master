@@ -18,6 +18,7 @@ public class liftIntakeDownOrUp extends Command {
   public liftIntakeDownOrUp(IntakeLift sentIntakeLift) {
     m_intakeLift = sentIntakeLift;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_intakeLift);
   }
 
   // Called when the command is initially scheduled.
@@ -30,13 +31,12 @@ public class liftIntakeDownOrUp extends Command {
   @Override
   public void execute() {
     if (startEncoder > .75 || startEncoder < .25) {
-      m_intakeLift.liftIntakeSpd(IntakeConstants.intakeLiftSpeedMultiplier);
+      m_intakeLift.liftIntakeSpd(IntakeConstants.intakeLiftSpeedMultiplier - 0.1);
       goingUp = false;
     } else if (startEncoder >= .25 || startEncoder <= 0.75) {
-      m_intakeLift.liftIntakeSpd(-1 * IntakeConstants.intakeLiftSpeedMultiplier);
+      m_intakeLift.liftIntakeSpd(-1 * IntakeConstants.intakeLiftSpeedMultiplier + 0.1);
       goingUp = true;
     }
-    SmartDashboard.putBoolean("goingUp", goingUp);
   }
 
   // Called once the command ends or is interrupted.
@@ -56,7 +56,7 @@ public class liftIntakeDownOrUp extends Command {
         return false;
       }
     } else {
-      if (m_intakeLift.getLiftThroughBoreEncoder() >= IntakeConstants.liftDownLimitLow) {
+      if (m_intakeLift.getLiftThroughBoreEncoder() >= IntakeConstants.liftDownLimitLow && m_intakeLift.getLiftThroughBoreEncoder() < 0.9) {
         return true;
       } else {
         return false;

@@ -50,6 +50,7 @@ public class IntakeLift extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Current Encoder Lift", getLiftThroughBoreEncoder());
     SmartDashboard.putBoolean("Intake Limit Switch", intakeLimit.get());
+    SmartDashboard.putNumber("Intake Lift Motor Speed", intakeLift.get());
   }
 
 /*   public void liftPIDIntake(boolean stopPoint) {

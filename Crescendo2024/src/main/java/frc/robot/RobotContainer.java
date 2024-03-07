@@ -30,7 +30,7 @@ import frc.robot.commands.runRightArm;
 import frc.robot.commands.shooterIntakeJoystick;
 import frc.robot.commands.shootNote;
 import frc.robot.commands.auton.liftIntakeEnc;
-import frc.robot.commands.auton.releaseNoteShootNoteAuton;
+import frc.robot.commands.releaseNoteShootNoteAuton;
 import frc.robot.commands.auton.runIntakeTimed;
 import frc.robot.commands.auton.finals.lowerIntakeRunIntake;
 import frc.robot.constants.SwerveConstants;
@@ -79,7 +79,7 @@ public class RobotContainer {
     // NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
     // NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
     // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, 0));
-    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher));
+    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher,.3, .75));
     NamedCommands.registerCommand("moveIntake", new liftIntakeDownOrUp(m_intakeLift));
     NamedCommands.registerCommand("runIntake", new runIntakeTimed(m_intake, 1, false));
 
@@ -141,7 +141,7 @@ public class RobotContainer {
     manipulateController.axisGreaterThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
     manipulateController.axisLessThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
 
-    manipulateController.axisGreaterThan(3,.1).whileTrue(new releaseNoteShootNote(m_intake, m_launcher, .2));
+    manipulateController.axisGreaterThan(3,.1).whileTrue(new releaseNoteShootNote(m_intake, m_launcher, .5));
     manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
     manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
 
@@ -171,7 +171,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("New Auto");
+    return new PathPlannerAuto("framework tester");
   }
 
   // public Command scheduleAprilTagPath() {

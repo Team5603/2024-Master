@@ -11,16 +11,19 @@ import frc.robot.constants.GeneralConstants.LauncherConstants;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Launcher.Launcher;
 
-public class releaseNoteShootNote extends Command {
+public class releaseNoteShootNoteAuton extends Command {
   Intake m_intake;
   Launcher m_launcher;
   double delay;
+  double endTime;
   Timer m_timer;
-  /** Creates a new releaseNoteShootNote. */
-  public releaseNoteShootNote(Intake sentIntake, Launcher sentLauncher, double sentDelay) {
+
+  /** Creates a new releaseNoteShootNoteAuton. */
+  public releaseNoteShootNoteAuton(Intake sentIntake, Launcher sentLauncher, double sentDelay, double timeToRun) {
     m_intake = sentIntake;
     m_launcher = sentLauncher;
     delay = sentDelay;
+    endTime = timeToRun;
     m_timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intake, m_launcher);
@@ -54,6 +57,10 @@ public class releaseNoteShootNote extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (m_timer.get() > endTime) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
