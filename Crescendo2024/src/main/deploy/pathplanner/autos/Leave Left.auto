@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7859976973515199,
+      "y": 6.817692039942485
+    },
+    "rotation": -119.40571040249255
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pre Left Leave Mid"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Left Middle Note"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Kettering Autons",
+  "choreoAuto": false
+}

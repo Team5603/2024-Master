@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 2.21,
-        "y": 6.911245275482004
+        "y": 6.948583040023223
       },
       "prevControl": {
         "x": 2.17491753667268,
-        "y": 6.560420642208806
+        "y": 6.597758406750025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Note Pickup Position"
     }
   ],
   "rotationTargets": [],

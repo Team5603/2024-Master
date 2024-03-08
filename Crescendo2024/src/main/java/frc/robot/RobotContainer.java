@@ -14,6 +14,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.liftLauncher;
@@ -73,6 +75,12 @@ public class RobotContainer {
   private static Command command_joyPointDrive;
   private static Command command_runAuto;
 
+  private String kFailSafe = "Fail Safe";
+  // private String kauto1 = "2 Note Left";
+  private String kauto2 = "2 Note Middle";
+  
+  private static SendableChooser<String> m_Chooser;
+
   public RobotContainer() {
     // NamedCommands.registerCommand("logToSmartDashboard", new logToSmartDashboard());
     // NamedCommands.registerCommand("lowerIntakeRunIntake", new lowerIntakeRunIntake(m_intakeLift, m_intake));
@@ -82,6 +90,14 @@ public class RobotContainer {
     NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher,.3, .75));
     NamedCommands.registerCommand("moveIntake", new liftIntakeDownOrUp(m_intakeLift));
     NamedCommands.registerCommand("runIntake", new runIntakeTimed(m_intake, 1, false));
+
+    m_Chooser = new SendableChooser<>();
+
+    m_Chooser.setDefaultOption(kFailSafe, kFailSafe);
+    // m_Chooser.addOption(kauto1, kauto1);
+    m_Chooser.addOption(kauto2, kauto2);
+
+    SmartDashboard.putData(m_Chooser);
 
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent())
@@ -171,7 +187,19 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("framework tester");
+    String m_autoSelected = m_Chooser.getSelected();
+    System.out.println("Auton Selected " + m_autoSelected);
+
+    switch (m_autoSelected) {
+      case "Fail Safe":
+        return new PathPlannerAuto("Leave Left");
+      // case "2 Note Left":
+      //   return new PathPlannerAuto("Left 2 Note");
+      case "2 Note Middle":
+        return new PathPlannerAuto("Middle 2 Note");
+      default:
+        return new PathPlannerAuto("Leave Left");
+    }
   }
 
   // public Command scheduleAprilTagPath() {

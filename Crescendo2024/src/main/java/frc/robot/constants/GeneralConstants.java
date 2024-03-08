@@ -44,7 +44,7 @@ public class GeneralConstants {
         public static final int leftArmLimitSwitch = 7;
         public static final int rightArmLimitSwitch = 8;
 
-        public static final double extendSpeedMultiplier = .3;
+        public static final double extendSpeedMultiplier = .7;
         public static final double extendEncoderLimit = 8;
     }
 }
