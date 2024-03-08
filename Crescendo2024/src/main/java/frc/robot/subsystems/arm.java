@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.GeneralConstants.ArmConstants;
+import frc.robot.constants.GeneralConstants.MotorConstants;
 
 public class Arm extends SubsystemBase {
   CANSparkMax leftArm, rightArm;
@@ -35,6 +36,9 @@ public class Arm extends SubsystemBase {
 
     leftArm.setIdleMode(IdleMode.kBrake);
     rightArm.setIdleMode(IdleMode.kBrake);
+
+    leftArm.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
+    rightArm.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
   }
 
   @Override

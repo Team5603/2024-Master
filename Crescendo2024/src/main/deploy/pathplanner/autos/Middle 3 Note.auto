@@ -1,0 +1,123 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.5695060449949958,
+      "y": 5.531335051274091
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle to Middle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Pickup Middle"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Left"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Pickup Left"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pre Left Leave Mid"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Left Middle Note"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Kettering Autons",
+  "choreoAuto": false
+}

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.GeneralConstants.LauncherConstants;
+import frc.robot.constants.GeneralConstants.MotorConstants;
 
 public class Launcher extends SubsystemBase {
     TalonFX shootRight, shootLeft;
@@ -24,6 +25,9 @@ public class Launcher extends SubsystemBase {
 
         shootRight.setInverted(true);
         shootLeft.setInverted(false);
+
+        shootLeft.getConfigurator().apply(MotorConstants.nonDriveCurrentLimitCTRE);
+        shootRight.getConfigurator().apply(MotorConstants.nonDriveCurrentLimitCTRE);
     }
 
     @Override

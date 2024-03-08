@@ -17,6 +17,7 @@ import frc.robot.commands.liftIntake;
 import frc.robot.constants.GeneralConstants;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.constants.GeneralConstants.LauncherConstants;
+import frc.robot.constants.GeneralConstants.MotorConstants;
 
 public class IntakeLift extends SubsystemBase {
   CANSparkMax intakeLift;
@@ -35,6 +36,8 @@ public class IntakeLift extends SubsystemBase {
     intakeLift.restoreFactoryDefaults();
 
     intakeLift.setInverted(true);
+
+    intakeLift.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
 
     intakeLiftEncoder = intakeLift.getAbsoluteEncoder(encoderType);
 

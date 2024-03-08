@@ -1,6 +1,13 @@
 package frc.robot.constants;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+
 public class GeneralConstants {
+    public class MotorConstants {
+        public static final CurrentLimitsConfigs nonDriveCurrentLimitCTRE = 
+        new CurrentLimitsConfigs().withSupplyCurrentLimit(20).withSupplyCurrentLimitEnable(true);
+        public static final int nonDriveCurrentLimitREV = 20;
+    }
     public class IntakeConstants {
         public static final int intakeMotor = 38;
         public static final int liftMotor = 40;

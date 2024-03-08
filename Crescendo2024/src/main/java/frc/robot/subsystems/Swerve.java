@@ -42,13 +42,12 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     public Swerve(SwerveDrivetrainConstants swerveConstants, double odometryUpdateFrequency,
             SwerveModuleConstants... modules) {
         super(swerveConstants, odometryUpdateFrequency, modules);
-        
+
         configurePathPlanner();
         m_odometry.addVisionMeasurement(null, odometryUpdateFrequency, null);
         if (Utils.isSimulation())
             startSimThread();
     }
-    
 
     public Swerve(SwerveDrivetrainConstants swerveConstants, SwerveModuleConstants... modules) {
         super(swerveConstants, modules);
@@ -59,7 +58,7 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
 
     // @Override
     // public void periodic() {
-    //     m_odometry.update(m_pigeon2.getRotation2d(), getModulePositions());
+    // m_odometry.update(m_pigeon2.getRotation2d(), getModulePositions());
     // }
 
     public ChassisSpeeds getCurrentChassisSpeeds() {
@@ -84,10 +83,11 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
                         driveBaseRadius,
                         new ReplanningConfig()),
                 () -> {
-                    // Boolean supplier that controls when the path will be mirrored for the red alliance
+                    // Boolean supplier that controls when the path will be mirrored for the red
+                    // alliance
                     // This will flip the path being followed to the red side of the field.
                     // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-          
+
                     var alliance = DriverStation.getAlliance();
                     if (alliance.isPresent()) {
                         return alliance.get() == DriverStation.Alliance.Red;
@@ -113,17 +113,17 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     }
 
     public SwerveModulePosition[] getModulePositions() {
-    return new SwerveModulePosition[] {
-        Modules[0].getPosition(true),
-        Modules[1].getPosition(true),
-        Modules[2].getPosition(true),
-        Modules[3].getPosition(true)
-    };
+        return new SwerveModulePosition[] {
+                Modules[0].getPosition(true),
+                Modules[1].getPosition(true),
+                Modules[2].getPosition(true),
+                Modules[3].getPosition(true)
+        };
     }
 
     public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(
-    m_yawGetter.getValueAsDouble(), m_fieldRelativeOffset);
+        return new SwerveModulePosition(
+                m_yawGetter.getValueAsDouble(), m_fieldRelativeOffset);
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {

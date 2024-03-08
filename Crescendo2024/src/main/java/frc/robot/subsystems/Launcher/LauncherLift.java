@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.GeneralConstants.LauncherConstants;
+import frc.robot.constants.GeneralConstants.MotorConstants;
 
 public class LauncherLift extends SubsystemBase {
 
@@ -39,6 +40,9 @@ public class LauncherLift extends SubsystemBase {
 
     liftLeft.setIdleMode(IdleMode.kBrake);
     liftRight.setIdleMode(IdleMode.kBrake);
+
+    liftLeft.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
+    liftRight.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
 
     getThroughBoreEncoderRaw().setZeroOffset(LauncherConstants.absoluteEncoderZeroPoint);
     getThroughBoreEncoderRaw().setInverted(false);

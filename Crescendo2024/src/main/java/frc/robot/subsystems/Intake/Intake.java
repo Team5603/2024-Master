@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
+import frc.robot.constants.GeneralConstants.MotorConstants;
 
 public class Intake extends SubsystemBase {
     CANSparkMax intake;
@@ -17,6 +18,8 @@ public class Intake extends SubsystemBase {
         intake.restoreFactoryDefaults();
 
         intake.setInverted(false);
+
+        intake.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
     }
     @Override
     public void periodic() {
