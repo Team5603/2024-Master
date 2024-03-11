@@ -5,7 +5,7 @@
       "x": 1.5695060449949958,
       "y": 5.531335051274091
     },
-    "rotation": 180.0
+    "rotation": -178.58832747013227
   },
   "command": {
     "type": "sequential",
@@ -106,13 +106,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pre Left Leave Mid"
+            "pathName": "Speaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leave Left Middle Note"
+            "pathName": "Go Past Line"
           }
         }
       ]

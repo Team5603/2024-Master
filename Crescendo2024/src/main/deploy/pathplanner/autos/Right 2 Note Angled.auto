@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7636103146671328,
-      "y": 6.792285196553275
+      "x": 0.7753211512129142,
+      "y": 4.321298685393376
     },
-    "rotation": -122.1957339347132
+    "rotation": 124.38034472384487
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left to Left"
+            "pathName": "Right to Right"
           }
         },
         {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pickup Left"
+                  "pathName": "Pickup Right"
                 }
               },
               {
@@ -57,7 +57,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker"
+            "pathName": "Angled Speaker Blank Side"
           }
         },
         {
@@ -69,13 +69,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pre Left Leave Far"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leave Left Left Note"
+            "pathName": "Leave Right "
           }
         }
       ]

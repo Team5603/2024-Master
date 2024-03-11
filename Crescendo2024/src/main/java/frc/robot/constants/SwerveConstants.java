@@ -88,39 +88,39 @@ public class SwerveConstants {
 
 
     // Front Left
-    private static final int kFrontLeftDriveMotorId = 23;
-    private static final int kFrontLeftSteerMotorId = 9;
-    private static final int kFrontLeftEncoderId = 59;
-    private static final double kFrontLeftEncoderOffset = -0.2490234375;
+    private static final int kFrontLeftDriveMotorId = 21;
+    private static final int kFrontLeftSteerMotorId = 7;
+    private static final int kFrontLeftEncoderId = 62;
+    private static final double kFrontLeftEncoderOffset = -0.31591796875;
 
-    private static final double kFrontLeftXPosInches = 12.25;
+    private static final double kFrontLeftXPosInches = 12.3125;
     private static final double kFrontLeftYPosInches = 12.75;
 
     // Front Right
     private static final int kFrontRightDriveMotorId = 22;
     private static final int kFrontRightSteerMotorId = 11;
     private static final int kFrontRightEncoderId = 60;
-    private static final double kFrontRightEncoderOffset = -0.0791015625;
+    private static final double kFrontRightEncoderOffset = -0.082763671875;
 
-    private static final double kFrontRightXPosInches = 12.25;
+    private static final double kFrontRightXPosInches = 12.3125;
     private static final double kFrontRightYPosInches = -12.75;
 
     // Back Left
     private static final int kBackLeftDriveMotorId = 24;
     private static final int kBackLeftSteerMotorId = 26;
-    private static final int kBackLeftEncoderId = 62;
-    private static final double kBackLeftEncoderOffset = -0.21435546875;
+    private static final int kBackLeftEncoderId = 58;
+    private static final double kBackLeftEncoderOffset = -0.218505859375;
 
-    private static final double kBackLeftXPosInches = -12.25;
+    private static final double kBackLeftXPosInches = -12.3125;
     private static final double kBackLeftYPosInches = 12.75;
 
     // Back Right
     private static final int kBackRightDriveMotorId = 25;
     private static final int kBackRightSteerMotorId = 6;
     private static final int kBackRightEncoderId = 61;
-    private static final double kBackRightEncoderOffset = 0.285888671875;
+    private static final double kBackRightEncoderOffset = 0.291748046875;
 
-    private static final double kBackRightXPosInches = -12.25;
+    private static final double kBackRightXPosInches = -12.3125;
     private static final double kBackRightYPosInches = -12.75;
 
 

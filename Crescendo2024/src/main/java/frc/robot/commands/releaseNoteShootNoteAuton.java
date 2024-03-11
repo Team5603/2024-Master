@@ -41,7 +41,7 @@ public class releaseNoteShootNoteAuton extends Command {
     m_launcher.runMotors(LauncherConstants.launcherSpeedLauncher);
 
     if (m_timer.get() > delay) {
-      m_intake.runIntake(IntakeConstants.intakeSpeed, true);
+      m_intake.runIntake(IntakeConstants.intakeSpeed + .4, true);
     }
   }
 

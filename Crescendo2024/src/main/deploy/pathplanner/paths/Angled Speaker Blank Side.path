@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7636103146671328,
-        "y": 6.792285196553275
+        "x": 1.9112722961537205,
+        "y": 3.7943110408332084
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6289777434076882,
-        "y": 6.839061814323035
+        "x": 1.138357084132141,
+        "y": 3.2556125597272594
       },
       "isLocked": false,
-      "linkedName": "Left Start Point"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.21,
-        "y": 6.948583040023223
+        "x": 0.7753211512129142,
+        "y": 4.321298685393376
       },
       "prevControl": {
-        "x": 1.7098358983042754,
-        "y": 6.852774503269805
+        "x": 0.9392728628538551,
+        "y": 3.946551915928368
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Note Pickup Position"
+      "linkedName": "Right Starting Point"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.5362555038535,
-    "rotateFast": false
+    "rotation": 126.2538377374448,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "Pick up Paths",
+  "folder": "Speaker Path",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

@@ -2,25 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7859976973515199,
-      "y": 6.817692039942485
+      "x": 0.7518994781213513,
+      "y": 4.321298685393376
     },
-    "rotation": -119.60360453615584
+    "rotation": 120.06858282186238
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Pre Left Leave Mid"
+            "name": "shootNote"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leave Left Middle Note"
+            "pathName": "Get Out Of Way Right "
           }
         }
       ]

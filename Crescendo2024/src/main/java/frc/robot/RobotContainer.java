@@ -75,9 +75,16 @@ public class RobotContainer {
   private static Command command_joyPointDrive;
   private static Command command_runAuto;
 
-  private String kFailSafe = "Fail Safe";
-  // private String kauto1 = "2 Note Left";
-  private String kauto2 = "2 Note Middle";
+  private static String kFailSafe = "Fail Safe";
+  private static String kauto1 = "2 Note Amp Side";
+  private static String kauto7 = "2 Note Amp Side - Angled";
+  private static String kauto2 = "2 Note Middle";
+  private static String kauto3 = "2 Note Blank Side";
+  private static String kauto8 = "2 Note Blank Side - Angled";
+  private static String kauto4 = "3 Note Middle";
+  private static String kauto5 = "1 Note Blank Side";
+  private static String kauto6 = "Get Out Of The Way";
+
   
   private static SendableChooser<String> m_Chooser;
 
@@ -87,15 +94,21 @@ public class RobotContainer {
     // NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
     // NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
     // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, 0));
-    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher,.3, .75));
+    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher,.5, 1.2));
     NamedCommands.registerCommand("moveIntake", new liftIntakeDownOrUp(m_intakeLift));
     NamedCommands.registerCommand("runIntake", new runIntakeTimed(m_intake, 1, false));
 
     m_Chooser = new SendableChooser<>();
 
     m_Chooser.setDefaultOption(kFailSafe, kFailSafe);
-    // m_Chooser.addOption(kauto1, kauto1);
+    m_Chooser.addOption(kauto1, kauto1);
     m_Chooser.addOption(kauto2, kauto2);
+    m_Chooser.addOption(kauto7, kauto7);
+    m_Chooser.addOption(kauto3, kauto3);
+    m_Chooser.addOption(kauto8, kauto8);
+    m_Chooser.addOption(kauto4, kauto4);
+    m_Chooser.addOption(kauto5, kauto5);
+    m_Chooser.addOption(kauto6, kauto6);
 
     SmartDashboard.putData(m_Chooser);
 
@@ -157,7 +170,7 @@ public class RobotContainer {
     manipulateController.axisGreaterThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
     manipulateController.axisLessThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
 
-    manipulateController.axisGreaterThan(3,.1).whileTrue(new releaseNoteShootNote(m_intake, m_launcher, .5));
+    manipulateController.axisGreaterThan(3,.1).whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
     manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
     manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
 
@@ -193,10 +206,22 @@ public class RobotContainer {
     switch (m_autoSelected) {
       case "Fail Safe":
         return new PathPlannerAuto("Leave Left");
-      // case "2 Note Left":
-      //   return new PathPlannerAuto("Left 2 Note");
+      case "2 Note Amp Side":
+        return new PathPlannerAuto("Left 2 Note");
+      case "2 Note Amp Side - Angled":
+        return new PathPlannerAuto("Left 2 Note Angled");
       case "2 Note Middle":
         return new PathPlannerAuto("Middle 2 Note");
+      case "2 Note Blank Side":
+        return new PathPlannerAuto("Right 2 Note");
+      case "2 Note Blank Side - Angled":
+        return new PathPlannerAuto("Right 2 Note Angled");
+      case "3 Note Middle":
+        return new PathPlannerAuto("Middle 3 Note");
+      case "1 Note Blank Side":
+        return new PathPlannerAuto("Right 1 Note");
+      case "Get Out Of The Way":
+        return new PathPlannerAuto("Leave Right");
       default:
         return new PathPlannerAuto("Leave Left");
     }

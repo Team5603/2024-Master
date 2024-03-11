@@ -69,13 +69,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pre Left Leave Mid"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leave Left Middle Note"
+            "pathName": "Go Past Line"
           }
         }
       ]

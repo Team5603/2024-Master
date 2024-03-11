@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7859976973515199,
-      "y": 6.817692039942485
+      "x": 0.5411044202972841,
+      "y": 2.119661414786453
     },
-    "rotation": -119.60360453615584
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pre Left Leave Mid"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leave Left Middle Note"
+            "pathName": "Get Out Of Way Right "
           }
         }
       ]

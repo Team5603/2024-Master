@@ -18,8 +18,6 @@ public class Intake extends SubsystemBase {
         intake.restoreFactoryDefaults();
 
         intake.setInverted(false);
-
-        intake.setSmartCurrentLimit(MotorConstants.nonDriveCurrentLimitREV);
     }
     @Override
     public void periodic() {
