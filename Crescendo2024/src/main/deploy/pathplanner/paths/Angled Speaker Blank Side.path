@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9112722961537205,
-        "y": 3.7943110408332084
+        "x": 2.21,
+        "y": 4.0695657459691
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.138357084132141,
-        "y": 3.2556125597272594
+        "x": 1.4174820372432768,
+        "y": 2.982009382822185
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Note Pickup Position"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 4.321298685393376
       },
       "prevControl": {
-        "x": 0.9392728628538551,
-        "y": 3.946551915928368
+        "x": 0.9614100139881189,
+        "y": 3.92923589265982
       },
       "nextControl": null,
       "isLocked": false,

@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "shootNote"
+            "name": "shootNoteHold"
           }
         },
         {
@@ -26,6 +26,6 @@
       ]
     }
   },
-  "folder": "Kettering Autons",
+  "folder": "Legacy Autons",
   "choreoAuto": false
 }

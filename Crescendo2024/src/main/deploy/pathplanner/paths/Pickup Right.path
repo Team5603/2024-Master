@@ -4,44 +4,44 @@
     {
       "anchor": {
         "x": 2.21,
-        "y": 4.1
+        "y": 4.0695657459691
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2009903848867527,
-        "y": 4.088305845557558
+        "x": 2.2009907940066826,
+        "y": 4.057871276336726
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Note Pickup Position"
     },
     {
       "anchor": {
-        "x": 2.44,
-        "y": 4.1
+        "x": 2.3,
+        "y": 4.0695657459691
       },
       "prevControl": {
-        "x": 2.42830584555756,
-        "y": 4.11169415444244
+        "x": 2.2883058455575593,
+        "y": 4.08125990041154
       },
       "nextControl": {
-        "x": 2.45169415444244,
-        "y": 4.088305845557559
+        "x": 2.3116941544424403,
+        "y": 4.057871591526659
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Note Pickup Pt.2"
     },
     {
       "anchor": {
         "x": 2.21,
-        "y": 4.1
+        "y": 4.0695657459691
       },
       "prevControl": {
-        "x": 2.5257421699458784,
-        "y": 4.07661169111512
+        "x": 2.247767002656512,
+        "y": 4.0695657459691
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Note Pickup Position"
     }
   ],
   "rotationTargets": [],

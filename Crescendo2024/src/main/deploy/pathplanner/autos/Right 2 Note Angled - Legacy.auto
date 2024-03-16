@@ -1,0 +1,80 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7753211512129142,
+      "y": 4.321298685393376
+    },
+    "rotation": 124.38034472384487
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right to Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Pickup Right"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Angled Speaker Blank Side"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Right From Right "
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Legacy Autons",
+  "choreoAuto": false
+}

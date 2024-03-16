@@ -14,19 +14,103 @@
         {
           "type": "named",
           "data": {
-            "name": "shootNote"
+            "name": "shootNoteHold"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Middle to Middle"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "deadline",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Middle to Middle Pickup"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "runIntake"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "stopIntake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "moveIntake"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "moveIntake"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker From Middle"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "releaseNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -36,45 +120,21 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pickup Middle"
+                  "pathName": "Go Past Line"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "runIntake"
+                  "name": "stopLauncher"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "moveIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Go Past Line"
           }
         }
       ]
     }
   },
-  "folder": "Kettering Autons",
+  "folder": "Competition Autons",
   "choreoAuto": false
 }

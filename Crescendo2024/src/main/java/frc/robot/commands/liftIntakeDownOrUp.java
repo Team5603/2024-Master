@@ -12,11 +12,14 @@ import frc.robot.subsystems.Intake.IntakeLift;
 
 public class liftIntakeDownOrUp extends Command {
   IntakeLift m_intakeLift;
+  double speed;
+
   double startEncoder;
   boolean goingUp;
   /** Creates a new liftIntakeDownOrUp. */
-  public liftIntakeDownOrUp(IntakeLift sentIntakeLift) {
+  public liftIntakeDownOrUp(IntakeLift sentIntakeLift, double sentSpeed) {
     m_intakeLift = sentIntakeLift;
+    speed = sentSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intakeLift);
   }
@@ -31,10 +34,10 @@ public class liftIntakeDownOrUp extends Command {
   @Override
   public void execute() {
     if (startEncoder > .75 || startEncoder < .25) {
-      m_intakeLift.liftIntakeSpd(IntakeConstants.intakeLiftSpeedMultiplier - 0.1);
+      m_intakeLift.liftIntakeSpd(speed);
       goingUp = false;
     } else if (startEncoder >= .25 || startEncoder <= 0.75) {
-      m_intakeLift.liftIntakeSpd(-1 * IntakeConstants.intakeLiftSpeedMultiplier + 0.1);
+      m_intakeLift.liftIntakeSpd(-1 * speed);
       goingUp = true;
     }
   }

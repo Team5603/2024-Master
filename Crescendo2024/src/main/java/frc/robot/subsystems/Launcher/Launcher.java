@@ -1,6 +1,7 @@
 package frc.robot.subsystems.Launcher;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +27,9 @@ public class Launcher extends SubsystemBase {
         shootRight.setInverted(true);
         shootLeft.setInverted(false);
 
+        shootRight.setNeutralMode(NeutralModeValue.Coast);
+        shootLeft.setNeutralMode(NeutralModeValue.Coast);
+
         shootLeft.getConfigurator().apply(MotorConstants.nonDriveCurrentLimitCTRE);
         shootRight.getConfigurator().apply(MotorConstants.nonDriveCurrentLimitCTRE);
     }
@@ -38,6 +42,10 @@ public class Launcher extends SubsystemBase {
     public void runMotors(double speed) {
         shootLeft.set(speed);
         shootRight.set(speed);
+    }
+
+    public double getMotorSpeeds() {
+        return (shootLeft.get() + shootRight.get());
     }
 
     public boolean getSensor() {

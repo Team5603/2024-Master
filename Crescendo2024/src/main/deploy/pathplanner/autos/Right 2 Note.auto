@@ -5,28 +5,100 @@
       "x": 0.7753211512129142,
       "y": 4.321298685393376
     },
-    "rotation": 121.70142966950567
+    "rotation": 119.88479915728763
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "shootNote"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Right to Right"
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Pickup Right"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "runIntake"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right to Right"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "moveIntake"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "moveIntake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "revLauncher"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "releaseNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -36,45 +108,21 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pickup Right"
+                  "pathName": "Go Past Line"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "runIntake"
+                  "name": "moveIntake"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "moveIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leave Right "
           }
         }
       ]
     }
   },
-  "folder": "Kettering Autons",
+  "folder": "Competition Autons",
   "choreoAuto": false
 }

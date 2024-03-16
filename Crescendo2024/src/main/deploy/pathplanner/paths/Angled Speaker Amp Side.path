@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.883271729453586,
-        "y": 6.358984244359359
+        "x": 2.59859163592971,
+        "y": 6.97
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3140196323188638,
-        "y": 7.3544053507507865
+        "x": 1.958097680924706,
+        "y": 6.911529227787801
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Note Pickup Position"
     },
     {
       "anchor": {
-        "x": 0.7636103146671328,
-        "y": 6.792285196553275
+        "x": 0.8093860062363999,
+        "y": 6.759221267730286
       },
       "prevControl": {
-        "x": 0.8572970070333846,
-        "y": 7.389537860388131
+        "x": 0.8327743151212798,
+        "y": 6.770915422172725
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -124.695153531234,
+    "rotation": -124.69999999999999,
     "rotateFast": true
   },
   "reversed": false,

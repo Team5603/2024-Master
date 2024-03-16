@@ -6,10 +6,12 @@ package frc.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.subsystems.Intake.Intake;
 
 public class runIntakeTimed extends Command {
   Intake m_intake;
+  double speed;
   double seconds;
   boolean reverse;
   Timer timer;
@@ -27,12 +29,17 @@ public class runIntakeTimed extends Command {
   @Override
   public void initialize() {
     timer.start();
+    if (reverse) {
+      speed = IntakeConstants.outakeSpeed;
+    } else {
+      speed = IntakeConstants.intakeSpeed;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.runIntake(.4, reverse);
+    m_intake.runIntake(speed, reverse);
   }
 
   // Called once the command ends or is interrupted.

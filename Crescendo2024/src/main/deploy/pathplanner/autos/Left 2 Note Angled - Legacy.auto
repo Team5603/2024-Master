@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7636103146671328,
+      "y": 6.792285196553275
+    },
+    "rotation": -123.27488798483486
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left to Left"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Pickup Left"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "moveIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Angled Speaker Amp Side"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pre Left Leave Far"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leave Left Left Note"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Legacy Autons",
+  "choreoAuto": false
+}

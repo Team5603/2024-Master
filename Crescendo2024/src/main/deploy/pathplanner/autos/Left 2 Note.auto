@@ -2,31 +2,103 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7636103146671328,
-      "y": 6.792285196553275
+      "x": 0.8093860062363999,
+      "y": 6.759221267730286
     },
-    "rotation": -122.1957339347132
+    "rotation": -123.11134196037206
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "shootNote"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Left to Left"
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Pickup Left"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "runIntake"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Left to Left"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "moveIntake"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "moveIntake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "revLauncher"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "releaseNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -36,51 +108,21 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pickup Left"
+                  "pathName": "Go Past Line"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "runIntake"
+                  "name": "moveIntake"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "moveIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Speaker"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pre Left Leave Far"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leave Left Left Note"
           }
         }
       ]
     }
   },
-  "folder": "Kettering Autons",
+  "folder": "Competition Autons",
   "choreoAuto": false
 }

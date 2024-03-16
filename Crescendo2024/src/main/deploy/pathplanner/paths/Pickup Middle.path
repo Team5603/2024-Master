@@ -4,44 +4,44 @@
     {
       "anchor": {
         "x": 2.21,
-        "y": 5.55
+        "y": 5.53
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2009903848867527,
-        "y": 5.5383058455575584
+        "x": 2.2026188345667412,
+        "y": 5.517215446450526
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle Note Pickup Position"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 5.55
+        "x": 2.481650091505311,
+        "y": 5.53
       },
       "prevControl": {
-        "x": 2.48830584555756,
-        "y": 5.56169415444244
+        "x": 2.469955937062871,
+        "y": 5.541694154442441
       },
       "nextControl": {
-        "x": 2.51169415444244,
-        "y": 5.538305845557559
+        "x": 2.493344245947751,
+        "y": 5.51830584555756
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle Note Pickup Pt.2"
     },
     {
       "anchor": {
         "x": 2.21,
-        "y": 5.55
+        "y": 5.53
       },
       "prevControl": {
-        "x": 2.5257421699458784,
-        "y": 5.52661169111512
+        "x": 2.388096855965791,
+        "y": 5.514558433504332
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle Note Pickup Position"
     }
   ],
   "rotationTargets": [],

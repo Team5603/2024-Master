@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.5110352727827958,
+        "y": 5.53
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.271155311541392,
+        "y": 6.244678472262928
+      },
+      "isLocked": false,
+      "linkedName": "Middle Speaker Position"
+    },
+    {
+      "anchor": {
+        "x": 2.68045071702679,
+        "y": 6.642279723305886
+      },
+      "prevControl": {
+        "x": 2.2126845393291923,
+        "y": 6.186207700050727
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Left Note Pickup Angled"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -122.96940390346212,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Pick up Paths",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

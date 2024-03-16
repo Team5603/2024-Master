@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7859976973515199,
-      "y": 6.817692039942485
+      "x": 0.8093860062363999,
+      "y": 6.759221267730286
     },
     "rotation": -119.60360453615584
   },
@@ -14,18 +14,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pre Left Leave Mid"
+            "pathName": "Pre Left Leave Far"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leave Left Middle Note"
+            "pathName": "Leave Left Left Note"
           }
         }
       ]
     }
   },
-  "folder": "Kettering Autons",
+  "folder": "Competition Autons",
   "choreoAuto": false
 }

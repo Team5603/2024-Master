@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.subsystems.Intake.Intake;
 
 public class runIntake extends Command {
@@ -22,7 +23,12 @@ public class runIntake extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    // changed to reverse from !reverse 3/16/24
+    if (reverse) {
+      speed = IntakeConstants.outakeSpeed;
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

@@ -1,0 +1,65 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.6621605095062035,
+        "y": 7.402399762064483
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.761710617438328,
+        "y": 7.098351746561043
+      },
+      "isLocked": false,
+      "linkedName": "Far Left Note Pickup Position"
+    },
+    {
+      "anchor": {
+        "x": 2.9143338058755885,
+        "y": 6.2797609355902475
+      },
+      "prevControl": {
+        "x": 5.498741937654815,
+        "y": 6.805997885500045
+      },
+      "nextControl": {
+        "x": 2.2461641267100796,
+        "y": 6.143708285986411
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.5110352727827958,
+        "y": 5.53
+      },
+      "prevControl": {
+        "x": 1.5461177361101157,
+        "y": 5.91215968454729
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Middle Speaker Position"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "Speaker Path",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

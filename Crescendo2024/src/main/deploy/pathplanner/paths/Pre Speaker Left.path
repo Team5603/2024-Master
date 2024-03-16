@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7626093884666401,
-        "y": 6.829386194384925
+        "x": 0.8093860062363999,
+        "y": 6.759221267730286
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7626093884666401,
-        "y": 6.829386194384925
+        "x": 0.8093860062363999,
+        "y": 6.759221267730286
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Start Point"
     },
     {
       "anchor": {
-        "x": 2.1426031423491425,
-        "y": 5.570593998330854
+        "x": 2.21,
+        "y": 5.53
       },
       "prevControl": {
-        "x": 1.8501657516135543,
-        "y": 7.390705607622041
+        "x": 1.9203306782681937,
+        "y": 6.555338178881486
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle Note Pickup Position"
     }
   ],
   "rotationTargets": [],

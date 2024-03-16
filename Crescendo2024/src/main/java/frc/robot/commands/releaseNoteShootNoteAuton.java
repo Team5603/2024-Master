@@ -16,13 +16,15 @@ public class releaseNoteShootNoteAuton extends Command {
   Launcher m_launcher;
   double delay;
   double endTime;
+  boolean shootHold;
   Timer m_timer;
 
   /** Creates a new releaseNoteShootNoteAuton. */
-  public releaseNoteShootNoteAuton(Intake sentIntake, Launcher sentLauncher, double sentDelay, double timeToRun) {
+  public releaseNoteShootNoteAuton(Intake sentIntake, Launcher sentLauncher, double sentDelay, boolean sentShootHold, double timeToRun) {
     m_intake = sentIntake;
     m_launcher = sentLauncher;
     delay = sentDelay;
+    shootHold = sentShootHold;
     endTime = timeToRun;
     m_timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,14 +43,16 @@ public class releaseNoteShootNoteAuton extends Command {
     m_launcher.runMotors(LauncherConstants.launcherSpeedLauncher);
 
     if (m_timer.get() > delay) {
-      m_intake.runIntake(IntakeConstants.intakeSpeed + .4, true);
+      m_intake.runIntake(1, true);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcher.runMotors(0);
+    if (!shootHold) {
+      m_launcher.runMotors(0);
+    }
     m_intake.runIntake(0, false);
     m_timer.stop();
     m_timer.reset();

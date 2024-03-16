@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "shootNote"
+            "name": "shootNoteHold"
           }
         },
         {
@@ -63,7 +63,7 @@
         {
           "type": "named",
           "data": {
-            "name": "shootNote"
+            "name": "shootNoteHold"
           }
         },
         {

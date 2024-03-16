@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.5110352727827958,
+        "y": 5.53
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7800008249589143,
+        "y": 5.518305845557561
+      },
+      "isLocked": false,
+      "linkedName": "Middle Speaker Position"
+    },
+    {
+      "anchor": {
+        "x": 2.481650091505311,
+        "y": 5.53
+      },
+      "prevControl": {
+        "x": 2.177425704466277,
+        "y": 5.540907779203153
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Middle Note Pickup Pt.2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.69461429119534,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Pick up Paths",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.665344728692309,
-        "y": 5.492382339971527
+        "x": 1.5110352727827958,
+        "y": 5.53
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.665344728692309,
-        "y": 5.492382339971527
+        "x": 2.294543620426272,
+        "y": 5.5430292057165325
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle Speaker Position"
     },
     {
       "anchor": {
-        "x": 2.8715608929078047,
-        "y": 5.492382339971527
+        "x": 2.4231793192931113,
+        "y": 5.53
       },
       "prevControl": {
-        "x": 1.8715608929078047,
-        "y": 5.492382339971527
+        "x": 1.5578118905525553,
+        "y": 5.5430292057165325
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.88,
+    "maxAcceleration": 4.88,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

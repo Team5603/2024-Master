@@ -18,8 +18,10 @@ public class GeneralConstants {
         public static final double liftDownLimitHigh = 0.75;
         public static final double liftUpLimitLow = .76;
         public static final double liftUpLimitHigh = 1;
-        public static final double intakeSpeed = 0.5;
+        public static final double intakeSpeed = 0.4; //3/16/24 changed to .4 from .5 // changed from .4 to .3
+        public static final double outakeSpeed = 0.9;
         public static final double intakeLiftSpeedMultiplier = 0.35;
+        public static final double intakeLiftSpeedManual = .3; // 3/16/24 changed from .2 to .3
 
         public static final double absoluteEncoderZeroPoint = 0.505;
     }
@@ -33,10 +35,11 @@ public class GeneralConstants {
         public static final int liftLimitSwitch = 0;
 
         public static final int angleToEncoderTranslation = 4;
-        public static final double launcherSpeedLauncher = 0.90;
+        public static final double launcherSpeedLauncher = 0.70;
         public static final double launcherSpeedAmp = .3;
         public static final double launcherIntakeSpeed = .225;
         public static final double launcherIntakeSpeedSlower = .15;
+        public static final double launcherLiftSpeedMultiplier = .6;
 
         public static final double liftDownLimitLow = .75;
         public static final double liftDownLimitHigh = 1;
@@ -44,6 +47,8 @@ public class GeneralConstants {
                                                                                                    
         public static final double liftUpLimitHigh = 0.75;
         public static final double absoluteEncoderZeroPoint = 0.243;
+        public static final double sourceEncoderPostion = 0.055; // changed from 0.07 to 0.055
+        public static final double ampEncoderPosition = 0.2;
     }
     public class ArmConstants {
         public static final int leftArmMotor = 41;

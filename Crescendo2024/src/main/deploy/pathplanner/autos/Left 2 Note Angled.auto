@@ -2,31 +2,58 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7636103146671328,
-      "y": 6.792285196553275
+      "x": 0.8093860062363999,
+      "y": 6.759221267730286
     },
-    "rotation": -123.27488798483486
+    "rotation": -123.11134196037206
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Left to Left"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "moveIntake"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Left to Left"
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Pickup Left"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "runIntake"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              }
+            ]
           }
         },
         {
@@ -34,53 +61,81 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "Pickup Left"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "moveIntake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "revLauncher"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "runIntake"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Angled Speaker Amp Side"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "releaseNote"
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "moveIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Angled Speaker Amp Side"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pre Left Leave Far"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leave Left Left Note"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Pre Left Leave Picked Left"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Leave Left Left Note"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
-  "folder": "Kettering Autons",
+  "folder": "Competition Autons",
   "choreoAuto": false
 }
