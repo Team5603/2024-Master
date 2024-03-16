@@ -1,27 +1,104 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.signals.MotionMagicIsRunningValue;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.VisionConstants.entry;
+import frc.robot.RobotLimelightHelpers.LimelightResults;
+import frc.robot.RobotLimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.constants.VisionConstants;
 import frc.robot.utils.VisionUtils;
 
 public class Vision extends SubsystemBase implements VisionUtils {
 
     private NetworkTable nt_limelight;
+    private LimelightResults vision_results;
+
+    private Timer timer;
+    private double distance;
+    private boolean isShooting = false;
+    private boolean targetFound = false;
+
+    private int target_id = 3;
+    private int target_offset = 5;
+
+    private double tx = -100;
+    private double ty = -100;
+
+    private VisionStage visionStage;
 
     public Vision() {
         nt_limelight = NetworkTableInstance.getDefault().getTable("limelight");
+        timer = new Timer();
+        visionStage = VisionStage.INITIALIZED;
+    }
+
+    private void tickSmartDashboard() {
+        SmartDashboard.putNumber("Distance:", distance);
+        SmartDashboard.putBoolean("Target found:", targetFound);
+        SmartDashboard.putNumber("tx:", getX());
+        SmartDashboard.putNumber("ty:", getY());
+        SmartDashboard.putNumber("target tx-offset: (+/-)", target_offset);
+    }
+
+    private void tickTargets() {
+        for (LimelightTarget_Fiducial tag : vision_results.targetingResults.targets_Fiducials) {
+            if (tag.fiducialID == target_id) {
+                targetFound = true;
+                tx = tag.tx;
+                ty = tag.ty;
+            } else {
+                targetFound = false;
+                tx = -100;
+                ty = -100;
+            }
+        }
+    }
+    // State management
+    public VisionStage getStage () {
+        return visionStage;
+    }
+    public void setStage (VisionStage stage) {
+        visionStage = stage;
+    }
+    private void tickStage () {
+        switch (visionStage) {
+            case INITIALIZED: {
+                visionStage = targetFound ? VisionStage.GOTO_TARGET : VisionStage.FIND_TARGET;
+                break;
+            }
+        }
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("tx", getX());
-        SmartDashboard.putNumber("ty", getY());
-        SmartDashboard.putNumber("ta", getArea());
+        distance = getTargetDistance(41, 200.5, 57, getY());
+        tickSmartDashboard();
+        tickTargets();
+        tickStage();
+    }
+
+    // Targeting
+    public void setTargetID(int id) {
+        target_id = id;
+    }
+
+    public int getTargetID() {
+        return target_id;
+    }
+
+    // Gets the distance in inches to an AprilTag target
+    public double getTargetDistance(double camera_height, double camera_angle, double target_height,
+            double target_verticalOffset) {
+        double relative_height = target_height - camera_height;
+        double angleToTarget = camera_angle + getY();
+        double angleInRadians = Math.toRadians(angleToTarget);
+        return (relative_height / Math.tan(angleInRadians));
     }
 
     private NetworkTableEntry getEntry(String entry) {
@@ -38,11 +115,11 @@ public class Vision extends SubsystemBase implements VisionUtils {
 
     // x / y offsets of crosshair
     public double getX() {
-        return getDouble(entry.tx);
+        return tx;
     }
 
     public double getY() {
-        return getDouble(entry.ty);
+        return ty;
     }
 
     // get area of LL target
@@ -66,45 +143,49 @@ public class Vision extends SubsystemBase implements VisionUtils {
         setNumber(entry.pipeline, id_pipeline);
     }
 
-    // get list of april tags the LL sees
-    public void getTags() {
-        // int pipeline = getPipeline();
-        // setPipeline(pipelines.Fiducial);
-        // Double[] tags = getEntry(entry.tid).getDoubleArray(new Double[6]);
-        // setPipeline(pipeline);
-        // SmartDashboard.putNumber("eeee", getEntry(entry.tid).getDouble(100
-        // ));
-        // return new TagList(tags);
-    }
+    // // get list of april tags the LL sees
+    // public void getTags() {
+    // int pipeline = getPipeline();
+    // setPipeline(pipelines.Fiducial);
+    // Double[] tags = getEntry(entry.tid).getDoubleArray(new Double[6]);
+    // setPipeline(pipeline);
+    // SmartDashboard.putNumber("eeee", getEntry(entry.tid).getDouble(100
+    // ));
+    // return new TagList(tags);
+    // }
 
-    // gets distance from LL to current target (in inches)
-    public double getRawDistance() {
-        double relativeHeight = VisionConstants.targetToGround - VisionConstants.camToGround;
-        double angleToTarget = VisionConstants.leveledCamAngle + getY();
-        double angleInRads = (angleToTarget * 3.1415926) / 180;
-        return (relativeHeight / Math.tan(angleInRads));
-    }
+    // // gets distance from LL to current target (in inches)
+    // public double getRawDistance() {
+    // double relativeHeight = VisionConstants.targetToGround -
+    // VisionConstants.camToGround;
+    // double angleToTarget = VisionConstants.leveledCamAngle + getY();
+    // double angleInRads = (angleToTarget * 3.1415926) / 180;
+    // return (relativeHeight / Math.tan(angleInRads));
+    // }
 
-    /** gets horizontal distance from current target **/
-    public double getHorizontalDistance() {
-        /** long side of the triangle **/
-        double hypotenuse = getRawDistance();
-        /** the side of the triangle straight ahead of the limelight */
-        double opposite = VisionConstants.targetToGround - VisionConstants.camToGround;
-        /** pythagorean theorem :) */
-        double pyth = (Math.pow(hypotenuse, 2) - Math.pow(opposite, 2));
-        return (Math.sqrt(pyth));
-    }
+    // /** gets horizontal distance from current target **/
+    // public double getHorizontalDistance() {
+    // /** long side of the triangle **/
+    // double hypotenuse = getRawDistance();
+    // /** the side of the triangle straight ahead of the limelight */
+    // double opposite = VisionConstants.targetToGround -
+    // VisionConstants.camToGround;
+    // /** pythagorean theorem :) */
+    // double pyth = (Math.pow(hypotenuse, 2) - Math.pow(opposite, 2));
+    // return (Math.sqrt(pyth));
+    // }
 
-    /** gets closest angle of the triangle formed from the raw and horizontal distances **/
-    public double getVerticalAngleToTarget() {
-        
-        double height =  VisionConstants.targetToGround - VisionConstants.speakerAprilTagToGround;
+    // /** gets closest angle of the triangle formed from the raw and horizontal
+    // distances **/
+    // public double getVerticalAngleToTarget() {
 
-        double distance = getHorizontalDistance();
+    // double height = VisionConstants.targetToGround -
+    // VisionConstants.speakerAprilTagToGround;
 
-        double verticalAngleInRads = Math.atan(height/distance);
+    // double distance = getHorizontalDistance();
 
-        return Math.toDegrees(verticalAngleInRads);
-    }
+    // double verticalAngleInRads = Math.atan(height/distance);
+
+    // return Math.toDegrees(verticalAngleInRads);
+    // }
 }

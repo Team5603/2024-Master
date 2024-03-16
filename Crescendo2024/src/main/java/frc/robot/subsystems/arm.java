@@ -16,6 +16,7 @@ import frc.robot.constants.GeneralConstants.MotorConstants;
 public class Arm extends SubsystemBase {
   CANSparkMax leftArm, rightArm;
   DigitalInput leftArmLimitSwitch, rightArmLimitSwitch;
+
   /** Creates a new arm. */
   public Arm() {
 
@@ -55,9 +56,9 @@ public class Arm extends SubsystemBase {
       if (getLimitSwitch("both")) {
         finalSpeed = 0;
       }
-    } else if(speed < 0) {
+    } else if (speed < 0) {
       // if (getLeftEncoder() > ArmConstants.extendEncoderLimit) {
-      //   finalSpeed = 0;
+      // finalSpeed = 0;
       // }
     }
     leftArm.set(finalSpeed);

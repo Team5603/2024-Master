@@ -13,11 +13,13 @@ public class shootNoteTimed extends Command {
   double speed;
   double seconds;
   Timer timer;
+  boolean shouldStop;
   /** Creates a new shootNote. */
-  public shootNoteTimed(Launcher sentLauncher, double sentSpeed, double sentSeconds) {
+  public shootNoteTimed(Launcher sentLauncher, double sentSpeed, double sentSeconds, boolean stopShooting) {
     m_launcher = sentLauncher;
     speed = sentSpeed;
     seconds = sentSeconds;
+    shouldStop = stopShooting;
     timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_launcher);
@@ -38,7 +40,7 @@ public class shootNoteTimed extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_launcher.runMotors(0);
+    if (shouldStop) m_launcher.runMotors(0);
     timer.stop();
     timer.reset();
   }

@@ -22,19 +22,16 @@ import frc.robot.commands.liftLauncher;
 import frc.robot.commands.launcherIntake;
 import frc.robot.commands.liftIntake;
 import frc.robot.commands.liftIntakeDownOrUp;
-import frc.robot.commands.logToSmartDashboard;
 import frc.robot.commands.maintainIntakeLift;
-import frc.robot.commands.releaseNoteShootNote;
 import frc.robot.commands.runBothArms;
 import frc.robot.commands.runIntake;
 import frc.robot.commands.runLeftArm;
 import frc.robot.commands.runRightArm;
 import frc.robot.commands.shooterIntakeJoystick;
 import frc.robot.commands.shootNote;
-import frc.robot.commands.auton.liftIntakeEnc;
 import frc.robot.commands.releaseNoteShootNoteAuton;
+import frc.robot.commands.auton.alignWithSpeaker;
 import frc.robot.commands.auton.runIntakeTimed;
-import frc.robot.commands.auton.finals.lowerIntakeRunIntake;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.GeneralConstants.ArmConstants;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
@@ -47,7 +44,6 @@ import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Intake.IntakeLift;
 import frc.robot.subsystems.Launcher.Launcher;
 import frc.robot.subsystems.Launcher.LauncherLift;
-
 
 public class RobotContainer {
   // Sweve drive platform
@@ -85,16 +81,20 @@ public class RobotContainer {
   private static String kauto5 = "1 Note Blank Side";
   private static String kauto6 = "Get Out Of The Way";
 
-  
   private static SendableChooser<String> m_Chooser;
 
   public RobotContainer() {
-    // NamedCommands.registerCommand("logToSmartDashboard", new logToSmartDashboard());
-    // NamedCommands.registerCommand("lowerIntakeRunIntake", new lowerIntakeRunIntake(m_intakeLift, m_intake));
-    // NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
-    // NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
-    // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift, 0));
-    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher,.5, 1.2));
+    // NamedCommands.registerCommand("logToSmartDashboard", new
+    // logToSmartDashboard());
+    // NamedCommands.registerCommand("lowerIntakeRunIntake", new
+    // lowerIntakeRunIntake(m_intakeLift, m_intake));
+    // NamedCommands.registerCommand("reverseIntake", new runIntake(m_intake,
+    // IntakeConstants.intakeSpeed, true));
+    // NamedCommands.registerCommand("runLauncher", new shootNote(m_launcher,
+    // LauncherConstants.launcherSpeedLauncher));
+    // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift,
+    // 0));
+    NamedCommands.registerCommand("shootNote", new releaseNoteShootNoteAuton(m_intake, m_launcher, .5, 1.2));
     NamedCommands.registerCommand("moveIntake", new liftIntakeDownOrUp(m_intakeLift));
     NamedCommands.registerCommand("runIntake", new runIntakeTimed(m_intake, 1, false));
 
@@ -111,26 +111,30 @@ public class RobotContainer {
     m_Chooser.addOption(kauto6, kauto6);
 
     SmartDashboard.putData(m_Chooser);
-
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    if (alliance.isPresent())
-      tagData.setAlliance(alliance.get());
-
+    tagData.setAlliance(getAlliance());
     configureBindings();
   }
+
+  public static Alliance getAlliance() {
+    return DriverStation.getAlliance().get();
+  }
+
   public void configureSwerve() {
-    //m_swerve.getAutoPath("Tests");
+    // m_swerve.getAutoPath("Tests");
     swerve_forwardStraight = new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     swerve_brake = new SwerveRequest.SwerveDriveBrake();
     swerve_point = new SwerveRequest.PointWheelsAt();
 
-    //command_runAuto = m_swerve.getAutoPath("Tests");
+    // command_runAuto = m_swerve.getAutoPath("Tests");
     command_joyDrive = m_swerve.applyRequest(() -> swerve_drive
-        .withVelocityX(-driveController.getLeftY() * maxSpeed).withVelocityY(-driveController.getLeftX() * maxAngularRate).withRotationalRate(-driveController.getRightX() * maxAngularRate))
+        .withVelocityX(-driveController.getLeftY() * maxSpeed)
+        .withVelocityY(-driveController.getLeftX() * maxAngularRate)
+        .withRotationalRate(-driveController.getRightX() * maxAngularRate))
         .ignoringDisable(true);
 
     command_joyPointDrive = m_swerve.applyRequest(
-        () -> swerve_point.withModuleDirection(new Rotation2d(-driveController.getLeftY(), -driveController.getLeftX())));
+        () -> swerve_point
+            .withModuleDirection(new Rotation2d(-driveController.getLeftY(), -driveController.getLeftX())));
 
     swerve_drive = new SwerveRequest.FieldCentric().withDeadband(maxSpeed * 0.1)
         .withRotationalDeadband(maxAngularRate * 0.1)// add a 10% deadband
@@ -138,7 +142,7 @@ public class RobotContainer {
   }
 
   // AprilTags stuff
-  public final TagData tagData = new TagData();
+  public final static TagData tagData = new TagData();
 
   // Path follower
   // private Command command_runAuto = m_sw
@@ -148,33 +152,46 @@ public class RobotContainer {
   private void configureBindings() {
     configureSwerve();
     m_swerve.setDefaultCommand(command_joyDrive);
-    //m_intakeLift.setDefaultCommand(new liftIntake(m_intakeLift, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
+    // m_intakeLift.setDefaultCommand(new liftIntake(m_intakeLift, () ->
+    // Math.abs(manipulateController.getRightY()) < .1 ? 0:
+    // manipulateController.getRightY()));
     m_intakeLift.setDefaultCommand(new maintainIntakeLift(m_intakeLift));
-    //m_launcher.setDefaultCommand(new shooterIntakeJoystick(m_intake, m_launcher, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
-    //m_arm.setDefaultCommand(new runBothArms(m_arm, () -> Math.abs(manipulateController.getRightY()) < .1 ? 0: manipulateController.getRightY()));
-    m_launcherLift.setDefaultCommand(new liftLauncher(m_launcherLift, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0: -manipulateController.getLeftY()));
+    // m_launcher.setDefaultCommand(new shooterIntakeJoystick(m_intake, m_launcher,
+    // () -> Math.abs(manipulateController.getRightY()) < .1 ? 0:
+    // manipulateController.getRightY()));
+    // m_arm.setDefaultCommand(new runBothArms(m_arm, () ->
+    // Math.abs(manipulateController.getRightY()) < .1 ? 0:
+    // manipulateController.getRightY()));
+    m_launcherLift.setDefaultCommand(new liftLauncher(m_launcherLift,
+        () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0 : -manipulateController.getLeftY()));
 
     driveController.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
-    //joystick.b().whileTrue(command_joyPointDrive);
-    //joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
+    // joystick.b().whileTrue(command_joyPointDrive);
+    // joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
     driveController.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
-    
-
 
     manipulateController.b().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
     manipulateController.a().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
-    //manipulateController.x().whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedAmp));
-    manipulateController.x().whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeed, false));
-    manipulateController.axisGreaterThan(2, .1).whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeedSlower, true));
+    // manipulateController.x().whileTrue(new shootNote(m_launcher,
+    // LauncherConstants.launcherSpeedAmp));
+    manipulateController.x()
+        .whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeed, false));
+    manipulateController.axisGreaterThan(2, .1)
+        .whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeedSlower, true));
 
-    manipulateController.axisGreaterThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
-    manipulateController.axisLessThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
+    manipulateController.axisGreaterThan(5, .1)
+        .whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
+    manipulateController.axisLessThan(5, .1)
+        .whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
 
-    manipulateController.axisGreaterThan(3,.1).whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
+    manipulateController.axisGreaterThan(3, .1)
+        .whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
     manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
     manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
 
-    //manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() > .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift, IntakeConstants.liftDownSetpoint));
+    // manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() >
+    // .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift,
+    // IntakeConstants.liftDownSetpoint));
     manipulateController.y().onTrue(new liftIntakeDownOrUp(m_intakeLift));
 
     driveController.axisGreaterThan(3, .2).whileTrue(new runBothArms(m_arm, ArmConstants.extendSpeedMultiplier));
@@ -186,15 +203,14 @@ public class RobotContainer {
     manipulateController.povRight().whileTrue(new runRightArm(m_arm, ArmConstants.extendSpeedMultiplier));
     manipulateController.povLeft().whileTrue(new runRightArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
 
-
-    
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),
     // Rotation2d.fromDegrees(90)));
     // }
     m_swerve.registerTelemetry(logger::telemeterize);
 
-    driveController.pov(0).whileTrue(m_swerve.applyRequest(() -> swerve_forwardStraight.withVelocityX(0.5).withVelocityY(0)));
+    driveController.pov(0)
+        .whileTrue(m_swerve.applyRequest(() -> swerve_forwardStraight.withVelocityX(0.5).withVelocityY(0)));
     driveController.pov(180)
         .whileTrue(m_swerve.applyRequest(() -> swerve_forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
   }
