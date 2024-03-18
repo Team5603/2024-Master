@@ -29,13 +29,7 @@ public class alignWithSpeaker extends Command {
   Timer timer;
   boolean shouldStop;
 
-  private double distance;
-  private double verticalDistance_camToTag = VisionConstants.speakerAprilTagToGround - VisionConstants.camToGround;
-  private double shooterPoseSpeed = 70;
-  private double distanceToTag;
   private double angleToTag;
-  private Rotation2d camRotation;
-  private double verticalAngleToTag;
   private double robotHeading_current;
   private double angleHeading_new;
   private double debounce_count = 0;
@@ -64,8 +58,7 @@ public class alignWithSpeaker extends Command {
       Swerve sentSwerve,
       Vision sentVision,
       double sentSpeed,
-      double sentSeconds,
-      boolean stopShooting) {
+      double sentSeconds) {
     m_launcher = sentLauncher;
     m_swerve = sentSwerve;
     m_vision = sentVision;
@@ -97,10 +90,6 @@ public class alignWithSpeaker extends Command {
     angleToTag = m_vision.getX();
     robotHeading_current = m_swerve.getPigeon2().getAngle();
     angleHeading_new = angleToTag + robotHeading_current;
-    camRotation = rot2d(angleHeading_new);
-
-    verticalAngleToTag = m_vision.getY();
-    distanceToTag = verticalDistance_camToTag / Math.tan(Math.toRadians(verticalAngleToTag));
   }
 
   private void failWithError(String error) {
@@ -137,6 +126,7 @@ public class alignWithSpeaker extends Command {
           debounce_count++;
         // we're within the tx tolerance, FINISH THE COMMAND
         else {
+          // stop the swerve modules
           m_swerve.setControl(pid_aim.withRotationalRate(0));
           m_vision.setStage(VisionStage.IDLE);
         }

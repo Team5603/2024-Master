@@ -115,8 +115,13 @@ public class RobotContainer {
     configureBindings();
   }
 
+  // Gets the current match's alliance (OR, defaults Alliance.Red)
   public static Alliance getAlliance() {
-    return DriverStation.getAlliance().get();
+    Optional<Alliance> _alliance = DriverStation.getAlliance();
+    if (_alliance.isPresent())
+      return _alliance.get();
+    else
+      return Alliance.Red;
   }
 
   public void configureSwerve() {
@@ -188,6 +193,7 @@ public class RobotContainer {
         .whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
     manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
     manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
+    manipulateController.povDown().onTrue(new alignWithSpeaker(m_launcher, m_swerve, m_vision, 0.025, 25));
 
     // manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() >
     // .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift,
