@@ -11,13 +11,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
+import frc.robot.constants.GeneralConstants.LauncherConstants;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.constants.VisionConstants;
-import frc.robot.constants.GeneralConstants.LauncherConstants;
 import frc.robot.subsystems.Launcher.Launcher;
-import frc.robot.utils.VisionUtils.VisionStage;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Vision;
+import frc.robot.utils.VisionUtils.VisionStage;
 
 public class alignWithSpeaker extends Command {
 
@@ -39,26 +39,27 @@ public class alignWithSpeaker extends Command {
    * Swerve requests
    */
   private final SwerveRequest.FieldCentricFacingAngle m_aim = new SwerveRequest.FieldCentricFacingAngle()
-      .withDeadband(SwerveConstants.kSpeedAt12VoltsMps * 0.1)
-      .withRotationalDeadband((1.5 * Math.PI) * 0.1)
-      .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-      .withVelocityX(0)
-      .withVelocityY(0);
+    .withDeadband(SwerveConstants.kSpeedAt12VoltsMps * 0.1)
+    .withRotationalDeadband((1.5 * Math.PI) * 0.1)
+    .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+    .withVelocityX(0)
+    .withVelocityY(0);
 
   private final SwerveRequest.FieldCentric pid_aim = new SwerveRequest.FieldCentric()
-      .withDeadband(SwerveConstants.kSpeedAt12VoltsMps * 0.1)
-      .withRotationalDeadband((1.5 * Math.PI) * 0.1)
-      .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-      .withVelocityX(0)
-      .withVelocityY(0);
+    .withDeadband(SwerveConstants.kSpeedAt12VoltsMps * 0.1)
+    .withRotationalDeadband((1.5 * Math.PI) * 0.1)
+    .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+    .withVelocityX(0)
+    .withVelocityY(0);
 
   /** Creates a new shootNoteVisually. */
   public alignWithSpeaker(
-      Launcher sentLauncher,
-      Swerve sentSwerve,
-      Vision sentVision,
-      double sentSpeed,
-      double sentSeconds) {
+    Launcher sentLauncher,
+    Swerve sentSwerve,
+    Vision sentVision,
+    double sentSpeed,
+    double sentSeconds
+  ) {
     m_launcher = sentLauncher;
     m_swerve = sentSwerve;
     m_vision = sentVision;
@@ -94,7 +95,8 @@ public class alignWithSpeaker extends Command {
 
   private void failWithError(String error) {
     System.out.println(
-        "[ERROR] Command 'shootNoteVisually' failed with error: `" + error + '`');
+      "[ERROR] Command 'shootNoteVisually' failed with error: `" + error + '`'
+    );
     end(false);
   }
 
@@ -103,46 +105,50 @@ public class alignWithSpeaker extends Command {
   public void execute() {
     // distance = m_vision.getTargetDistance();
     switch (m_vision.getStage()) {
-      case FIND_TARGET: {
-        failWithError(
-            "No AprilTag with ID " + m_vision.getTargetID() + " found!");
-        break;
-      }
-      case GOTO_TARGET: {
-        // update current angle and distance values
-        tickCalculations();
-        // start going toward speaker and rev launcher intake
-        m_launcher.runMotors(LauncherConstants.launcherSpeedLauncher);
-        m_swerve.setControl(
-            pid_aim.withRotationalRate(
-                -pid.calculate(
-                    m_swerve.getPigeon2().getAngle(),
-                    angleHeading_new) *
-                    (1.5 * Math.PI)));
-        if (Math.abs(pid.getPositionError()) > VisionConstants.txTolerance)
-          debounce_count = 0;
-          // thanks 
-        else if (debounce_count < debounce_limit)
-          debounce_count++;
-        // we're within the tx tolerance, FINISH THE COMMAND
-        else {
-          // stop the swerve modules
-          m_swerve.setControl(pid_aim.withRotationalRate(0));
-          m_vision.setStage(VisionStage.IDLE);
+      case FIND_TARGET:
+        {
+          failWithError("No AprilTag with ID " + m_vision.getTargetID() + " found!");
+          break;
         }
-        break;
-      }
-      case IDLE: {
-        break;
-      }
+      case GOTO_TARGET:
+        {
+          // update current angle and distance values
+          tickCalculations();
+          // start going toward speaker and rev launcher intake
+          m_launcher.runMotors(LauncherConstants.launcherSpeedLauncher);
+          m_swerve.setControl(
+            pid_aim.withRotationalRate(
+              -pid.calculate(
+                m_swerve.getPigeon2().getAngle(),
+                angleHeading_new
+              ) *
+              (1.5 * Math.PI)
+            )
+          );
+          if (
+            Math.abs(pid.getPositionError()) > VisionConstants.txTolerance
+          ) debounce_count = 0;
+          // thanks
+          else if (debounce_count < debounce_limit) debounce_count++;
+          // we're within the tx tolerance, FINISH THE COMMAND
+          else {
+            // stop the swerve modules
+            m_swerve.setControl(pid_aim.withRotationalRate(0));
+            m_vision.setStage(VisionStage.IDLE);
+          }
+          break;
+        }
+      case IDLE:
+        {
+          break;
+        }
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (shouldStop)
-      m_launcher.runMotors(0);
+    if (shouldStop) m_launcher.runMotors(0);
     timer.stop();
     timer.reset();
   }
