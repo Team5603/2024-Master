@@ -9,6 +9,9 @@ public class VisionConstants {
     public final static double leveledCamAngle = 30;
     final static int targetRange_px = 30;
 
+    public final static String limelightName = "limelight";
+    public final static double txTolerance = 1.75;
+
 
     public interface pipeline {
         final static int Fiducial = 0;
@@ -36,20 +39,9 @@ public class VisionConstants {
         }
     }
 
-    public static class SetPose {
-        public double xPos, yPos, direction;
-
-        public SetPose(double xPos, double yPos, double direction) {
-            this.xPos = xPos;
-            this.yPos = yPos;
-            this.direction = direction;
-        }
-    }
-
     public static class TagData {
         public AprilTag Amp, SpeakerCenter, SpeakerOffset, TrapLeft, TrapRight, TrapBack, SourceLeft, SourceRight,
                 SourceCenter;
-        SetPose SpeakerMiddlePose, SpeakerLeftPose, SpeakerRightPose;
 
         public void setAlliance(edu.wpi.first.wpilibj.DriverStation.Alliance alliance) {
             switch (alliance) {
@@ -65,10 +57,6 @@ public class VisionConstants {
                     // Source Center does not exist. This is purely for the logic of the robot; ID
                     // used is 20
                     SourceCenter = new AprilTag(20, 0, 0, 0, 0, 0);
-
-                    SpeakerMiddlePose = new SetPose(1.45, 5.50, 180);
-                    SpeakerLeftPose = new SetPose(0.8, 6.75, -125);
-                    SpeakerRightPose = new SetPose(0.8, 4.30, 125);
                 }
                 case Red: {
                     Amp = new AprilTag(5, 14.75, 8.15, -90, 0, 0);
@@ -82,10 +70,6 @@ public class VisionConstants {
                     // Source Center does not exist. This is purely for the logic of the robot; ID
                     // used is 21
                     SourceCenter = new AprilTag(21, 0, 0, 0, 0, 0);
-
-                    SpeakerMiddlePose = new SetPose(15.10, 5.50, 0);
-                    SpeakerLeftPose = new SetPose(15.85, 4.30, 55);
-                    SpeakerRightPose = new SetPose(15.10, 6.75, -55);
                 }
             }
         }
