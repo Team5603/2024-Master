@@ -201,28 +201,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "moveIntake"
+                  "pathName": "Go Past Line"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Go Past Line"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "stopLauncher"
-                      }
-                    }
-                  ]
+                  "name": "stopLauncher"
                 }
               }
             ]
