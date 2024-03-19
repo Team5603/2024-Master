@@ -9,6 +9,9 @@ public class VisionConstants {
     public final static double leveledCamAngle = 30;
     final static int targetRange_px = 30;
 
+    public final static String limelightName = "limelight";
+    public final static double txTolerance = 3;
+
 
     public interface pipeline {
         final static int Fiducial = 0;
