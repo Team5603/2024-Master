@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.21,
-        "y": 4.0695657459691
+        "x": 2.5050384003901907,
+        "y": 4.151424827066179
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4174820372432768,
-        "y": 2.982009382822185
+        "x": 1.7125204376334675,
+        "y": 3.063868463919264
       },
       "isLocked": false,
-      "linkedName": "Right Note Pickup Position"
+      "linkedName": "RIght Note Pickup Angled"
     },
     {
       "anchor": {
@@ -28,7 +28,13 @@
       "linkedName": "Right Starting Point"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {

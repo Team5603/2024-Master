@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.6621605095062035,
+        "x": 7.860961135027683,
         "y": 7.402399762064483
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.761710617438328,
+        "x": 6.960511242959807,
         "y": 7.098351746561043
       },
       "isLocked": false,
-      "linkedName": "Far Left Note Pickup Position"
+      "linkedName": "Far Left Note Pickup Pt.2"
     },
     {
       "anchor": {

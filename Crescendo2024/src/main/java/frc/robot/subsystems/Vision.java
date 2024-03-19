@@ -5,7 +5,9 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.VisionConstants;
 import frc.robot.constants.VisionConstants.entry;
+import frc.robot.RobotLimelightHelpers;
 import frc.robot.RobotLimelightHelpers.LimelightResults;
 import frc.robot.RobotLimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.utils.VisionUtils;
@@ -37,20 +39,25 @@ public class Vision extends SubsystemBase implements VisionUtils {
         SmartDashboard.putNumber("tx:", getX());
         SmartDashboard.putNumber("ty:", getY());
         SmartDashboard.putNumber("target tx-offset: (+/-)", target_offset);
+        SmartDashboard.putString("Stage:", getStage().toString());
     }
 
     private void tickTargets() {
-        vision_results = new LimelightResults();
+        vision_results = RobotLimelightHelpers.getLatestResults(VisionConstants.limelightName);
+        boolean tag_visible = false;
         for (LimelightTarget_Fiducial tag : vision_results.targetingResults.targets_Fiducials) {
+            // System.out.println("tag is found");
             if (tag.fiducialID == target_id) {
                 targetFound = true;
                 tx = tag.tx;
                 ty = tag.ty;
-            } else {
-                targetFound = false;
-                tx = -100;
-                ty = -100;
+                tag_visible = true;
             }
+        }
+        if (!tag_visible) {
+            targetFound = false;
+            tx = -100;
+            ty = -100;
         }
     }
     // State management

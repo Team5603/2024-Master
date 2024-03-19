@@ -280,7 +280,7 @@ public class RobotContainer {
     manipulateController
         .povDown()
         .onTrue(
-            new alignWithSpeaker(m_launcher, m_swerve, m_vision, maxSpeed, 20));
+            new alignWithSpeaker(m_swerve, m_vision, 0.1, 20));
 
     // manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() >
     // .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift,

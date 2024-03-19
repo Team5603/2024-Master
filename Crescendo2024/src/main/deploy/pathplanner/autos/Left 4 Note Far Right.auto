@@ -12,27 +12,39 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
               {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Left to Left"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Left"
+                              "pathName": "Left to Left Pickup"
                             }
                           },
                           {
@@ -45,12 +57,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "moveIntake"
                 }
               }
             ]
@@ -68,12 +74,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -106,23 +106,29 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Left To Far Right"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Far Right"
+                              "pathName": "Left To Far Right Pickup"
                             }
                           },
                           {
@@ -135,12 +141,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "moveIntake"
                 }
               }
             ]
@@ -158,12 +158,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -196,23 +190,29 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "To Middle"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Middle"
+                              "pathName": "Middle to Middle Pickup"
                             }
                           },
                           {
@@ -225,12 +225,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "moveIntake"
                 }
               }
             ]
@@ -248,12 +242,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -294,7 +282,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "moveIntake"
+                  "name": "stopLauncher"
                 }
               }
             ]

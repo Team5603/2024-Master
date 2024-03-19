@@ -5,12 +5,18 @@
       "x": 0.8093860062363999,
       "y": 6.759221267730286
     },
-    "rotation": -123.11134196037206
+    "rotation": -123.11000000000001
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
         {
           "type": "parallel",
           "data": {
@@ -20,19 +26,13 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Left to Left"
-                      }
-                    },
-                    {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Left"
+                              "pathName": "Left to Left Pickup"
                             }
                           },
                           {
@@ -68,12 +68,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -106,23 +100,29 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Left To Far Left"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Far Left"
+                              "pathName": "Left To Far Left Pickup"
                             }
                           },
                           {
@@ -135,12 +135,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "moveIntake"
                 }
               }
             ]
@@ -158,12 +152,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -204,7 +192,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "moveIntake"
+                  "name": "stopLauncher"
                 }
               }
             ]

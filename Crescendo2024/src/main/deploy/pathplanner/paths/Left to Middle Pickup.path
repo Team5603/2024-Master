@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.481650091505311,
-        "y": 6.969716047694203
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.6981417438618351,
-        "y": 7.191904982100563
-      },
-      "isLocked": false,
-      "linkedName": "Left Note Pickup Pt.2"
-    },
-    {
-      "anchor": {
         "x": 0.8093860062363999,
         "y": 6.759221267730286
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8501657516135543,
+        "y": 6.537032333323926
+      },
+      "isLocked": false,
+      "linkedName": "Left Start Point"
+    },
+    {
+      "anchor": {
+        "x": 2.493344245947751,
+        "y": 5.68335905902581
+      },
       "prevControl": {
-        "x": 0.8327743151212798,
-        "y": 6.770915422172725
+        "x": 1.7449183616315946,
+        "y": 6.127736927838528
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Start Point"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -124.69999999999999,
-    "rotateFast": true
+    "rotation": 153.43494882292202,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Speaker Path",
+  "folder": "Pick up Paths",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

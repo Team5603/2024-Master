@@ -3,47 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5110352727827958,
-        "y": 5.53
+        "x": 0.7753211512129142,
+        "y": 4.321298685393376
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7800008249589143,
-        "y": 5.518305845557561
+        "x": 0.6339736895998008,
+        "y": 2.140030262966509
       },
       "isLocked": false,
-      "linkedName": "Middle Speaker Position"
+      "linkedName": "Right Starting Point"
     },
     {
       "anchor": {
-        "x": 2.446567628177991,
-        "y": 5.5430292057165325
+        "x": 7.884349443912563,
+        "y": 0.7484258843161573
       },
       "prevControl": {
-        "x": 2.1423432411389567,
-        "y": 5.553936984919686
+        "x": 7.732325436160843,
+        "y": 0.7367317298737166
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Middle Note Pickup Pt.2"
+      "linkedName": "Far Right Right Side Pickup Position Pt.2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.88,
+    "maxAcceleration": 4.88,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.69461429119534,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Pick up Paths",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "previewStartingState": {
+    "rotation": 124.87480162215242,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }
