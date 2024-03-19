@@ -24,7 +24,7 @@ public class alignWithSpeaker extends Command {
   Swerve m_swerve;
   Launcher m_launcher;
   Vision m_vision;
-  double speed;
+  double speed; 
   double seconds;
   Timer timer;
   boolean shouldStop;

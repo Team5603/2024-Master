@@ -40,6 +40,7 @@ public class Vision extends SubsystemBase implements VisionUtils {
     }
 
     private void tickTargets() {
+        vision_results = new LimelightResults();
         for (LimelightTarget_Fiducial tag : vision_results.targetingResults.targets_Fiducials) {
             if (tag.fiducialID == target_id) {
                 targetFound = true;
