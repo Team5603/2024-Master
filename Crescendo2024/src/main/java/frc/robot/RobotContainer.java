@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.Dimensionless;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -38,6 +39,7 @@ import frc.robot.commands.shootNote;
 import frc.robot.commands.shooterIntakeJoystick;
 import frc.robot.commands.stopIntake;
 import frc.robot.commands.stopLauncher;
+import frc.robot.commands.waitSeconds;
 import frc.robot.constants.GeneralConstants.ArmConstants;
 import frc.robot.constants.GeneralConstants.IntakeConstants;
 import frc.robot.constants.GeneralConstants.LauncherConstants;
@@ -72,10 +74,8 @@ public class RobotContainer {
   private double maxAngularRate = 1.5 * Math.PI; // 3/4 a rotation/sec max angular velocity. 1.5*pi as default
 
   // set up bindings for control of swerve drive platform
-  public final CommandXboxController driveController = new CommandXboxController(
-      0);
-  public final CommandXboxController manipulateController = new CommandXboxController(
-      1);
+  public final CommandXboxController driveController = new CommandXboxController(0);
+  public final CommandXboxController manipulateController = new CommandXboxController(1);
 
   private static Command command_joyDrive;
   private static Command command_joyPointDrive;
@@ -88,11 +88,14 @@ public class RobotContainer {
   private static String kauto3 = "2 Note Blank Side";
   private static String kauto8 = "2 Note Blank Side - Angled";
   private static String kauto4 = "3 Note Middle";
+  private static String kauto9 = "4 Note Middle";
   private static String kauto5 = "1 Note Blank Side";
   private static String kauto6 = "Get Out Of The Way";
-  private static String kauto0 = "Framework Tester";
+  private static String kauto0 = "Delay Right";
 
   private static SendableChooser<String> m_Chooser;
+  
+  private double sentDelay;
 
   public RobotContainer() {
     // NamedCommands.registerCommand("logToSmartDashboard", new
@@ -105,29 +108,14 @@ public class RobotContainer {
     // LauncherConstants.launcherSpeedLauncher));
     // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift,
     // 0));
-    NamedCommands.registerCommand(
-        "shootNoteHold",
-        new releaseNoteShootNoteAuton(m_intake, m_launcher, 0.4, true, 1.2));
-    NamedCommands.registerCommand(
-        "shootNoteStop",
-        new releaseNoteShootNoteAuton(m_intake, m_launcher, 0, false, .1));
-    NamedCommands.registerCommand(
-        "moveIntake",
-        new liftIntakeDownOrUp(m_intakeLift, 0.6));
-    NamedCommands.registerCommand(
-        "runIntake",
-        new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
-    NamedCommands.registerCommand(
-        "revLauncher",
-        new shootNoteTimed(
-            m_launcher,
-            LauncherConstants.launcherSpeedLauncher,
-            15));
-    NamedCommands.registerCommand(
-        "releaseNote",
-        new runIntakeTimed(m_intake, .5, true));
-    NamedCommands.registerCommand("stopLauncher", new stopLauncher(m_launcher));
-    NamedCommands.registerCommand("stopIntake", new stopIntake(m_intake));
+    NamedCommands.registerCommand("shootNoteHold",new releaseNoteShootNoteAuton(m_intake, m_launcher, 0.4, true, 1.2));
+    NamedCommands.registerCommand("shootNoteStop",new releaseNoteShootNoteAuton(m_intake, m_launcher, 0, false, .1));
+    NamedCommands.registerCommand("moveIntake",new liftIntakeDownOrUp(m_intakeLift, 0.6));
+    NamedCommands.registerCommand("runIntake",new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
+    NamedCommands.registerCommand("revLauncher",new shootNoteTimed( m_launcher, LauncherConstants.launcherSpeedLauncher, 15));
+    NamedCommands.registerCommand("releaseNote",new runIntakeTimed(m_intake, .5, true));
+    NamedCommands.registerCommand("stopLauncher",new stopLauncher(m_launcher));
+    NamedCommands.registerCommand("stopIntake",new stopIntake(m_intake));
 
     m_Chooser = new SendableChooser<>();
 
@@ -138,6 +126,7 @@ public class RobotContainer {
     m_Chooser.addOption(kauto3, kauto3);
     m_Chooser.addOption(kauto8, kauto8);
     m_Chooser.addOption(kauto4, kauto4);
+    m_Chooser.addOption(kauto9, kauto9);
     m_Chooser.addOption(kauto5, kauto5);
     m_Chooser.addOption(kauto6, kauto6);
     m_Chooser.addOption(kauto0, kauto0);
@@ -183,6 +172,10 @@ public class RobotContainer {
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
   }
 
+  public void configureDelay() {
+    sentDelay = SmartDashboard.getNumber("delay", 0);
+  }
+
   // AprilTags stuff
   public static final TagData tagData = new TagData();
 
@@ -204,111 +197,43 @@ public class RobotContainer {
     // m_arm.setDefaultCommand(new runBothArms(m_arm, () ->
     // Math.abs(manipulateController.getRightY()) < .1 ? 0:
     // manipulateController.getRightY()));
-    m_launcherLift.setDefaultCommand(
-        new liftLauncher(
-            m_launcherLift,
-            () -> Math.abs(manipulateController.getLeftY()) < .1
-                ? 0
-                : -manipulateController.getLeftY()));
+    m_launcherLift.setDefaultCommand(new liftLauncher(m_launcherLift, () -> Math.abs(manipulateController.getLeftY()) < .1 ? 0 : -manipulateController.getLeftY()));
 
     driveController.a().whileTrue(m_swerve.applyRequest(() -> swerve_brake));
     // joystick.b().whileTrue(command_joyPointDrive);
     // joystick.x().onTrue(new PathPlannerAuto("Follow Path"));
-    driveController
-        .leftBumper()
-        .onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
+    driveController.leftBumper().onTrue(m_swerve.runOnce(() -> m_swerve.seedFieldRelative()));
 
-    manipulateController
-        .b()
-        .whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
-    manipulateController
-        .a()
-        .whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
+    manipulateController.b().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, true));
+    manipulateController.a().whileTrue(new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
     // manipulateController.x().whileTrue(new shootNote(m_launcher,
     // LauncherConstants.launcherSpeedAmp));
-    manipulateController
-        .x()
-        .whileTrue(
-            new launcherIntake(
-                m_launcher,
-                m_intake,
-                LauncherConstants.launcherIntakeSpeed,
-                false));
-    manipulateController
-        .y()
-        .onTrue(
-            new liftLauncherEnc(
-                m_launcherLift,
-                LauncherConstants.sourceEncoderPostion));
-    manipulateController
-        .axisGreaterThan(2, .1)
-        .whileTrue(
-            new launcherIntake(
-                m_launcher,
-                m_intake,
-                LauncherConstants.launcherIntakeSpeedSlower,
-                true));
+    manipulateController.x().whileTrue(new launcherIntake(m_launcher, m_intake, LauncherConstants.launcherIntakeSpeed, false));
+    manipulateController.y().onTrue(new liftLauncherEnc(m_launcherLift, LauncherConstants.sourceEncoderPostion));
+    manipulateController.axisGreaterThan(2, .1).whileTrue(new launcherIntake( m_launcher, m_intake, LauncherConstants.launcherIntakeSpeedSlower, true));
 
-    manipulateController
-        .axisGreaterThan(5, .1)
-        .whileTrue(
-            new shooterIntakeJoystick(
-                m_intake,
-                m_launcher,
-                () -> manipulateController.getRightY()));
-    manipulateController
-        .axisLessThan(5, .1)
-        .whileTrue(
-            new shooterIntakeJoystick(
-                m_intake,
-                m_launcher,
-                () -> manipulateController.getRightY()));
+    manipulateController.axisGreaterThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
+    manipulateController.axisLessThan(5, .1).whileTrue(new shooterIntakeJoystick(m_intake, m_launcher, () -> manipulateController.getRightY()));
 
-    manipulateController
-        .axisGreaterThan(3, .1)
-        .whileTrue(
-            new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
+    manipulateController.axisGreaterThan(3, .1).whileTrue(new shootNote(m_launcher, LauncherConstants.launcherSpeedLauncher));
     manipulateController.button(5).whileTrue(new liftIntake(m_intakeLift, 1));
     manipulateController.button(6).whileTrue(new liftIntake(m_intakeLift, -1));
 
-    manipulateController
-        .povUp()
-        .onTrue(
-            new liftLauncherEnc(
-                m_launcherLift,
-                LauncherConstants.ampEncoderPosition));
-    // manipulateController
-    //     .povDown()
-    //     .onTrue(
-    //         new alignWithSpeaker(m_swerve, m_vision, 0.1, 20));
+    manipulateController.povUp().onTrue(new liftLauncherEnc(m_launcherLift,LauncherConstants.ampEncoderPosition));
+    // manipulateController.povDown().onTrue(new alignWithSpeaker(m_swerve, m_vision, 0.1, 20));
 
     // manipulateController.y().onTrue((m_intakeLift.getLiftThroughBoreEncoder() >
     // .1)?new liftIntakeEnc(m_intakeLift, 0.01): new liftIntakeEnc(m_intakeLift,
     // IntakeConstants.liftDownSetpoint));
 
-    driveController
-        .axisGreaterThan(3, .2)
-        .whileTrue(new runBothArms(m_arm, ArmConstants.extendSpeedMultiplier));
-    driveController
-        .axisGreaterThan(2, .2)
-        .whileTrue(
-            new runBothArms(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
+    driveController.axisGreaterThan(3, .2).whileTrue(new runBothArms(m_arm, ArmConstants.extendSpeedMultiplier));
+    driveController.axisGreaterThan(2, .2).whileTrue(new runBothArms(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
 
-    driveController
-        .povUp()
-        .whileTrue(new runLeftArm(m_arm, ArmConstants.extendSpeedMultiplier));
-    driveController
-        .povDown()
-        .whileTrue(
-            new runLeftArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
+    driveController.povUp().whileTrue(new runLeftArm(m_arm, ArmConstants.extendSpeedMultiplier));
+    driveController.povDown().whileTrue(new runLeftArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
 
-    driveController
-        .povRight()
-        .whileTrue(new runRightArm(m_arm, ArmConstants.extendSpeedMultiplier));
-    driveController
-        .povLeft()
-        .whileTrue(
-            new runRightArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
+    driveController.povRight().whileTrue(new runRightArm(m_arm, ArmConstants.extendSpeedMultiplier)); 
+    driveController.povLeft().whileTrue(new runRightArm(m_arm, -1 * ArmConstants.extendSpeedMultiplier));
 
     // if (Utils.isSimulation()) {
     // m_swerve.seedFieldRelative(new Pose2d(new Translation2d(),
@@ -326,6 +251,10 @@ public class RobotContainer {
     String m_autoSelected = m_Chooser.getSelected();
     System.out.println("Auton Selected " + m_autoSelected);
 
+    configureDelay();
+
+    NamedCommands.registerCommand("waitSeconds", new waitSeconds(sentDelay));
+
     switch (m_autoSelected) {
       case "Fail Safe":
         return new PathPlannerAuto("Leave Left");
@@ -341,12 +270,14 @@ public class RobotContainer {
         return new PathPlannerAuto("Right 2 Note Angled");
       case "3 Note Middle":
         return new PathPlannerAuto("Middle 3 Note");
+      case "4 Note Middle":
+        return new PathPlannerAuto("Middle 4 Note Far Right");
       case "1 Note Blank Side":
         return new PathPlannerAuto("Right 1 Note");
       case "Get Out Of The Way":
         return new PathPlannerAuto("Leave Right");
-      case "Framework Tester":
-        return new PathPlannerAuto("Framework Tester");
+      case "Delay Right":
+        return new PathPlannerAuto("Delay Right");
       default:
         return new PathPlannerAuto("Leave Left");
     }

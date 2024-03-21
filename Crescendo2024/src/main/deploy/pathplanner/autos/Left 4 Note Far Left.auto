@@ -282,7 +282,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "moveIntake"
+                  "name": "stopLauncher"
                 }
               }
             ]

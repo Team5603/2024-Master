@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 0.5404204540602812,
-        "y": 7.004798511021523
+        "y": 4.1046482092964185
       },
       "prevControl": null,
       "nextControl": {
         "x": 0.5404204540602812,
-        "y": 7.004798511021523
+        "y": 4.1046482092964185
       },
       "isLocked": false,
       "linkedName": "Right Starting Point Delay"
@@ -20,8 +20,8 @@
         "y": 5.53
       },
       "prevControl": {
-        "x": 1.896942369383314,
-        "y": 4.034483282641779
+        "x": 1.8150832882862347,
+        "y": 3.91754173821738
       },
       "nextControl": null,
       "isLocked": false,

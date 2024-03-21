@@ -28,7 +28,7 @@ public class liftIntakeEnc extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putBoolean("Intake Enc Running", true);
+    // SmartDashboard.putBoolean("Intake Enc Running", true);
     m_intakeLift.liftIntakeSpd(.5);;
   }
 
@@ -36,7 +36,7 @@ public class liftIntakeEnc extends Command {
   @Override
   public void end(boolean interrupted) {
     m_intakeLift.liftIntakeSpd(0);
-    SmartDashboard.putBoolean("Intake Enc Running", false);
+    // SmartDashboard.putBoolean("Intake Enc Running", false);
   }
 
   // Returns true when the command should end.

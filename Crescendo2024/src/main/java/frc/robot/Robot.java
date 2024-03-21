@@ -35,11 +35,11 @@ public class Robot extends TimedRobot {
 
 
     // useLimelight();
-    SmartDashboard.putNumber("Drive Right", m_robotContainer.driveController.getRightX());
-    SmartDashboard.putNumber("Drive Left", m_robotContainer.driveController.getLeftY());
+    // SmartDashboard.putNumber("Drive Right", m_robotContainer.driveController.getRightX());
+    // SmartDashboard.putNumber("Drive Left", m_robotContainer.driveController.getLeftY());
 
-    SmartDashboard.putNumber("Manip Right", -m_robotContainer.manipulateController.getRightY());
-    SmartDashboard.putNumber("Manip Left", m_robotContainer.manipulateController.getLeftY());
+    // SmartDashboard.putNumber("Manip Right", -m_robotContainer.manipulateController.getRightY());
+    // SmartDashboard.putNumber("Manip Left", m_robotContainer.manipulateController.getLeftY());
   }
   @Override
   public void autonomousInit() {

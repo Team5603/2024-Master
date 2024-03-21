@@ -19,9 +19,9 @@ public class Vision extends SubsystemBase implements VisionUtils {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("tx", getX());
-        SmartDashboard.putNumber("ty", getY());
-        SmartDashboard.putNumber("ta", getArea());
+        // SmartDashboard.putNumber("tx", getX());
+        // SmartDashboard.putNumber("ty", getY());
+        // SmartDashboard.putNumber("ta", getArea());
     }
 
     private NetworkTableEntry getEntry(String entry) {

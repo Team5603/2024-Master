@@ -19,7 +19,7 @@ public class runNeo550 extends Command {
     }
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Timer", timer.get());
+        // SmartDashboard.putNumber("Timer", timer.get());
         //sparkMax.set(0.1);
     }
     @Override

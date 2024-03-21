@@ -32,7 +32,7 @@ public class runRightArm extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putString("Arm Status", "Right Arm Running:" + speed);
+    // SmartDashboard.putString("Arm Status", "Right Arm Running:" + speed);
     m_arm.runRightArm(0);
   }
 

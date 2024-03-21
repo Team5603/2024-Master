@@ -51,12 +51,12 @@ public class LauncherLift extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ThroughBore", getThroughBoreEncoder());
+    // SmartDashboard.putNumber("ThroughBore", getThroughBoreEncoder());
 
-    SmartDashboard.putBoolean("Lift Limit", getLimitSwitch());
+    // SmartDashboard.putBoolean("Lift Limit", getLimitSwitch());
 
-    SmartDashboard.putNumber("Left Motor Speed", liftLeft.get());
-    SmartDashboard.putNumber("Right Motor Speed", liftRight.get());
+    // SmartDashboard.putNumber("Left Motor Speed", liftLeft.get());
+    // SmartDashboard.putNumber("Right Motor Speed", liftRight.get());
   }
 
   public void runLift(double speed) {

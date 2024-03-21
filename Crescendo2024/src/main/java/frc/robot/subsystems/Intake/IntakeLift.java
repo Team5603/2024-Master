@@ -51,9 +51,9 @@ public class IntakeLift extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Current Encoder Lift", getLiftThroughBoreEncoder());
-    SmartDashboard.putBoolean("Intake Limit Switch", intakeLimit.get());
-    SmartDashboard.putNumber("Intake Lift Motor Speed", intakeLift.get());
+    // SmartDashboard.putNumber("Current Encoder Lift", getLiftThroughBoreEncoder());
+    // SmartDashboard.putBoolean("Intake Limit Switch", intakeLimit.get());
+    // SmartDashboard.putNumber("Intake Lift Motor Speed", intakeLift.get());
   }
 
 /*   public void liftPIDIntake(boolean stopPoint) {
@@ -66,7 +66,7 @@ public class IntakeLift extends SubsystemBase {
 
   public void liftIntakeSpd(double speed) {
     double finalSpeed = speed;
-    SmartDashboard.putNumber("sentSpeed", speed);
+    // SmartDashboard.putNumber("sentSpeed", speed);
     if (speed > 0) {
       if (getLiftThroughBoreEncoder() >= IntakeConstants.liftDownLimitLow && getLiftThroughBoreEncoder() < IntakeConstants.liftDownLimitHigh) {
         finalSpeed = 0;
@@ -76,7 +76,7 @@ public class IntakeLift extends SubsystemBase {
         finalSpeed = 0;
       }
     }
-    SmartDashboard.putNumber("final speed", finalSpeed);
+    // SmartDashboard.putNumber("final speed", finalSpeed);
     if (finalSpeed==0)
       maintain.setReference(lastPosition, CANSparkMax.ControlType.kPosition);
     else {

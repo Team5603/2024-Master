@@ -36,7 +36,7 @@ public class Launcher extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Sensor", getSensor());
+        // SmartDashboard.putBoolean("Sensor", getSensor());
     }
 
     public void runMotors(double speed) {

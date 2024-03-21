@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7753211512129142,
-      "y": 4.321298685393376
+      "x": 0.5404204540602812,
+      "y": 4.1046482092964185
     },
     "rotation": 119.88479915728763
   },
@@ -16,23 +16,29 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Right to Right"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Right"
+                              "pathName": "Right to Right Pickup"
                             }
                           },
                           {
@@ -45,12 +51,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "moveIntake"
                 }
               }
             ]

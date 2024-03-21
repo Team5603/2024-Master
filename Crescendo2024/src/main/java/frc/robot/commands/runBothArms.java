@@ -28,7 +28,7 @@ public class runBothArms extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("Arm Status", "Both Arms Running:" + speed/* .getAsDouble()*/);
+    // SmartDashboard.putString("Arm Status", "Both Arms Running:" + speed/* .getAsDouble()*/);
     m_arm.runArmsTogether(speed/*.getAsDouble()*/);
   }
 

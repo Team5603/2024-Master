@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5110352727827958,
-        "y": 5.53
+        "x": 0.7753211512129142,
+        "y": 4.321298685393376
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9671072960379539,
-        "y": 4.712744240303296
+        "x": 1.6162826627647557,
+        "y": 4.186507290393498
       },
       "isLocked": false,
-      "linkedName": "Middle Speaker Position"
+      "linkedName": "Right Starting Point"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 4.198201444835939
       },
       "prevControl": {
-        "x": 1.9788014504803932,
-        "y": 4.712744240303296
+        "x": 1.686447589419395,
+        "y": 4.303448834817898
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 167.00538320808357,
+    "rotation": 166.90810693565314,
     "rotateFast": false
   },
   "reversed": false,

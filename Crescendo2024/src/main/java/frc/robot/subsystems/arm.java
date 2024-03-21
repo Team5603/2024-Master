@@ -44,8 +44,8 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Left Motor Encoder", leftArm.getEncoder().getPosition());
-    SmartDashboard.putNumber("Right Motor Encoder", rightArm.getEncoder().getPosition());
+    // SmartDashboard.putNumber("Left Motor Encoder", leftArm.getEncoder().getPosition());
+    // SmartDashboard.putNumber("Right Motor Encoder", rightArm.getEncoder().getPosition());
   }
 
   public void runArmsTogether(double speed) {

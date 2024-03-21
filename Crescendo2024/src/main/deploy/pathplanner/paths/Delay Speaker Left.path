@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5404204540602812,
-        "y": 7.004798511021523
+        "x": 0.5053379907329615,
+        "y": 7.028186819906404
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.5404204540602812,
-        "y": 7.004798511021523
+        "x": 0.5053379907329615,
+        "y": 7.028186819906404
       },
       "isLocked": false,
-      "linkedName": "Right Starting Point Delay"
+      "linkedName": "Left Starting Point Delay"
     },
     {
       "anchor": {
