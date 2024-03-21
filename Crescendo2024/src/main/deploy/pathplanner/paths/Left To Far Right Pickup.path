@@ -3,64 +3,70 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.931126061682322,
-        "y": 5.74182983123801
+        "x": 0.8093860062363999,
+        "y": 6.759221267730286
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.1593118684812875,
-        "y": 6.256372626705367
+        "x": 2.446567628177991,
+        "y": 6.373314171129768
       },
       "isLocked": false,
-      "linkedName": "Far Right Note Pickup Pt.2"
+      "linkedName": "Left Start Point"
     },
     {
       "anchor": {
-        "x": 5.6156834820792145,
-        "y": 6.665668032190766
-      },
-      "prevControl": {
-        "x": 6.399191829722691,
-        "y": 6.583808951093687
-      },
-      "nextControl": {
-        "x": 4.784667731311652,
-        "y": 6.752490573315734
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.9143338058755885,
+        "x": 3.4171824469005063,
         "y": 6.2797609355902475
       },
       "prevControl": {
-        "x": 3.593876294524797,
-        "y": 6.5515779310499305
+        "x": 2.832474724778509,
+        "y": 6.256372626705367
       },
       "nextControl": {
-        "x": 2.5050384003901907,
-        "y": 6.116042773396089
+        "x": 4.3409478136729245,
+        "y": 6.316711550261145
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.5110352727827958,
-        "y": 5.53
+        "x": 5.919731497582653,
+        "y": 6.431784943341967
       },
       "prevControl": {
-        "x": 2.0606605315774735,
-        "y": 5.89385383898973
+        "x": 4.763720683676817,
+        "y": 6.671711716039403
+      },
+      "nextControl": {
+        "x": 6.539521683031971,
+        "y": 6.303149244475128
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.931126061682322,
+        "y": 5.74182983123801
+      },
+      "prevControl": {
+        "x": 7.404889111772525,
+        "y": 6.022489537856569
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Middle Speaker Position"
+      "linkedName": "Far Right Note Pickup Pt.2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.35,
+      "rotationDegrees": -124.69999999999999,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -75,7 +81,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Speaker Path",
+  "folder": "Pick up Paths",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

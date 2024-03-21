@@ -32,19 +32,19 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Left to Left"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Left"
+                              "pathName": "Left to Left Pickup"
                             }
                           },
                           {
@@ -75,12 +75,6 @@
                       "data": {
                         "name": "moveIntake"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
-                      }
                     }
                   ]
                 }
@@ -92,7 +86,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Angled Speaker Amp Side"
+                        "pathName": "Angled Speaker Amp Side - Angled"
                       }
                     },
                     {
@@ -122,19 +116,19 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "Left To Far Left"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Far Left"
+                              "pathName": "Left To Far Left Pickup"
                             }
                           },
                           {
@@ -164,12 +158,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -212,19 +200,19 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "To Middle"
+                        "waitTime": 0.2
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Middle"
+                              "pathName": "Middle to Middle Pickup"
                             }
                           },
                           {
@@ -254,12 +242,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]

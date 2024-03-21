@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pickup Left"
+                  "pathName": null
                 }
               },
               {

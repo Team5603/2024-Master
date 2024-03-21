@@ -55,12 +55,6 @@
                           }
                         ]
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "stopIntake"
-                      }
                     }
                   ]
                 }
@@ -82,12 +76,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.1
-                      }
-                    },
                     {
                       "type": "path",
                       "data": {
@@ -143,12 +131,6 @@
                             }
                           }
                         ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "stopIntake"
                       }
                     }
                   ]

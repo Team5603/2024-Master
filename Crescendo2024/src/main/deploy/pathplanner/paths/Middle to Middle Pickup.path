@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7800008249589143,
-        "y": 5.518305845557561
+        "x": 1.7802549256789542,
+        "y": 5.53
       },
       "isLocked": false,
       "linkedName": "Middle Speaker Position"
     },
     {
       "anchor": {
-        "x": 2.481650091505311,
+        "x": 2.5401208637175103,
         "y": 5.53
       },
       "prevControl": {
-        "x": 2.177425704466277,
-        "y": 5.540907779203153
+        "x": 2.235700993609758,
+        "y": 5.53
       },
       "nextControl": null,
       "isLocked": false,
