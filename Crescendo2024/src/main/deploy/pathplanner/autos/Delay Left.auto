@@ -1,0 +1,63 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.5053379907329615,
+      "y": 7.028186819906404
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "waitSeconds"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Delay Speaker Left"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "shootNoteHold"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "stopLauncher"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get Out Of Way Right from Speaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Competition Autons",
+  "choreoAuto": false
+}

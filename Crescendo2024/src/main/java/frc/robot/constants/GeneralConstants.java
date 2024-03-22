@@ -44,6 +44,7 @@ public class GeneralConstants {
         public static final double liftDownLimitLow = .75;
         public static final double liftDownLimitHigh = 1;
         public static final double liftUpLimitLow = .25;
+        public static final double liftUpLimitForLiftLauncherEnc = .35;
                                                                                                    
         public static final double liftUpLimitHigh = 0.75;
         public static final double absoluteEncoderZeroPoint = 0.243;

@@ -92,6 +92,7 @@ public class RobotContainer {
   private static String kauto5 = "1 Note Blank Side";
   private static String kauto6 = "Get Out Of The Way";
   private static String kauto0 = "Delay Right";
+  private static String kauto10 = "Delay Left";
 
   private static SendableChooser<String> m_Chooser;
   
@@ -130,6 +131,7 @@ public class RobotContainer {
     m_Chooser.addOption(kauto5, kauto5);
     m_Chooser.addOption(kauto6, kauto6);
     m_Chooser.addOption(kauto0, kauto0);
+    m_Chooser.addOption(kauto10, kauto10);
 
     SmartDashboard.putData(m_Chooser);
 
@@ -278,6 +280,8 @@ public class RobotContainer {
         return new PathPlannerAuto("Leave Right");
       case "Delay Right":
         return new PathPlannerAuto("Delay Right");
+      case "Delay Left":
+        return new PathPlannerAuto("Delay Left");
       default:
         return new PathPlannerAuto("Leave Left");
     }

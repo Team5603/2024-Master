@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5404204540602812,
-      "y": 4.1046482092964185
+      "x": 0.7753211512129142,
+      "y": 4.321298685393376
     },
     "rotation": 119.88479915728763
   },
@@ -11,6 +11,12 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
         {
           "type": "parallel",
           "data": {
@@ -69,12 +75,6 @@
                       "data": {
                         "name": "moveIntake"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
-                      }
                     }
                   ]
                 }
@@ -114,7 +114,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "moveIntake"
+                  "name": "stopLauncher"
                 }
               }
             ]

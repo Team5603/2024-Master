@@ -38,7 +38,7 @@ public class liftLauncherEnc extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_launcherLift.getThroughBoreEncoder() > enc && m_launcherLift.getThroughBoreEncoder() < LauncherConstants.liftUpLimitLow) {
+    if (m_launcherLift.getThroughBoreEncoder() > enc && m_launcherLift.getThroughBoreEncoder() < LauncherConstants.liftUpLimitForLiftLauncherEnc) {
       return true;
     } else {
       return false;

@@ -12,13 +12,31 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "moveIntake"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
                     {
                       "type": "deadline",
                       "data": {
@@ -26,7 +44,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Pickup Right"
+                              "pathName": "Right to Right Pickup"
                             }
                           },
                           {
@@ -39,12 +57,6 @@
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "moveIntake"
                 }
               }
             ]
@@ -62,12 +74,6 @@
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "revLauncher"
                       }
                     }
                   ]
@@ -108,7 +114,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "moveIntake"
+                  "name": "stopLauncher"
                 }
               }
             ]
