@@ -18,32 +18,25 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Delay Speaker Right"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "shootNoteHold"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "stopLauncher"
-                      }
-                    }
-                  ]
+                  "pathName": "Delay Speaker Right"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shootNoteHold"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "stopLauncher"
                 }
               }
             ]

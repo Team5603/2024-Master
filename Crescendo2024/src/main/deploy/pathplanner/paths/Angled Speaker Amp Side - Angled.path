@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.7272273347965497,
-        "y": 6.677362186633205
+        "x": 2.5085249599885775,
+        "y": 6.90939356201109
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9437189871530738,
-        "y": 6.899551121039565
+        "x": 1.6536338921465275,
+        "y": 6.874261052373746
       },
       "isLocked": false,
-      "linkedName": "Left Note Pickup Angled"
+      "linkedName": "NEW ANGLED LEFT PICKUP"
     },
     {
       "anchor": {

@@ -6,6 +6,8 @@ public class GeneralConstants {
     public class MotorConstants {
         public static final CurrentLimitsConfigs nonDriveCurrentLimitCTRE = 
         new CurrentLimitsConfigs().withSupplyCurrentLimit(20).withSupplyCurrentLimitEnable(true);
+        public static final CurrentLimitsConfigs driveCurrentLimitCTRE =
+        new CurrentLimitsConfigs().withSupplyCurrentLimit(40).withSupplyCurrentLimitEnable(true);
         public static final int nonDriveCurrentLimitREV = 20;
     }
     public class IntakeConstants {
@@ -20,7 +22,7 @@ public class GeneralConstants {
         public static final double liftUpLimitHigh = 1;
         public static final double intakeSpeed = 0.4; //3/16/24 changed to .4 from .5 // changed from .4 to .3
         public static final double outakeSpeed = 0.9;
-        public static final double intakeLiftSpeedMultiplier = 0.35;
+        public static final double intakeLiftSpeedMultiplier = 0.45; //3/22/24 changed from 0.35 to 0.45
         public static final double intakeLiftSpeedManual = .3; // 3/16/24 changed from .2 to .3
 
         public static final double absoluteEncoderZeroPoint = 0.505;
@@ -35,7 +37,7 @@ public class GeneralConstants {
         public static final int liftLimitSwitch = 0;
 
         public static final int angleToEncoderTranslation = 4;
-        public static final double launcherSpeedLauncher = 0.70;
+        public static final double launcherSpeedLauncher = 0.75; // 3/22/24 changed from 0.70 to 0.75
         public static final double launcherSpeedAmp = .3;
         public static final double launcherIntakeSpeed = .225;
         public static final double launcherIntakeSpeedSlower = .15;

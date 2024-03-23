@@ -8,36 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2534642847063466,
-        "y": 6.4083966344570875
+        "x": 4.042644547485956,
+        "y": 6.44096010017983
       },
       "isLocked": false,
       "linkedName": "Middle Speaker Position"
     },
     {
       "anchor": {
-        "x": 6.106837968661692,
-        "y": 6.455173252226847
+        "x": 4.838981432599097,
+        "y": 6.522935956000301
       },
       "prevControl": {
-        "x": 5.299941312133336,
-        "y": 6.537032333323926
+        "x": 3.995946414275007,
+        "y": 6.445711374169086
       },
       "nextControl": {
-        "x": 6.736818836994173,
-        "y": 6.391262149642393
+        "x": 6.373101020096476,
+        "y": 6.663465994549679
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.931126061682322,
-        "y": 5.753523985680451
+        "x": 8.246834867421518,
+        "y": 5.785153253616065
       },
       "prevControl": {
-        "x": 7.381500802887644,
-        "y": 6.04587784674145
+        "x": 7.56760634776619,
+        "y": 6.113056676897948
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,19 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 1.7,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
@@ -55,7 +67,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 160.09625046269218,
     "rotateFast": true
   },
   "reversed": false,

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.constants.GeneralConstants;
 import frc.robot.constants.SwerveConstants;
 // import frc.robot.utils.SwerveUtils;
 import frc.robot.constants.VisionConstants.AprilTag;
@@ -36,6 +38,8 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
+
+    // private CurrentLimitsConfigs driveCurrentConfig, steerCurrentConfig;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -51,6 +55,23 @@ public class Swerve extends SwerveDrivetrain implements Subsystem {
 
     public Swerve(SwerveDrivetrainConstants swerveConstants, SwerveModuleConstants... modules) {
         super(swerveConstants, modules);
+
+        // driveCurrentConfig.SupplyCurrentLimit = 40;
+        // driveCurrentConfig.SupplyCurrentLimitEnable = true;
+
+        // steerCurrentConfig.SupplyCurrentLimit = 20;
+        // steerCurrentConfig.SupplyCurrentLimitEnable = true;
+
+        this.getModule(0).getDriveMotor().getConfigurator().apply(GeneralConstants.MotorConstants.driveCurrentLimitCTRE);
+        this.getModule(1).getDriveMotor().getConfigurator().apply(GeneralConstants.MotorConstants.driveCurrentLimitCTRE);
+        this.getModule(2).getDriveMotor().getConfigurator().apply(GeneralConstants.MotorConstants.driveCurrentLimitCTRE);
+        this.getModule(3).getDriveMotor().getConfigurator().apply(GeneralConstants.MotorConstants.driveCurrentLimitCTRE);
+
+        this.getModule(0).getSteerMotor().getConfigurator().apply(GeneralConstants.MotorConstants.nonDriveCurrentLimitCTRE);
+        this.getModule(1).getSteerMotor().getConfigurator().apply(GeneralConstants.MotorConstants.nonDriveCurrentLimitCTRE);
+        this.getModule(2).getSteerMotor().getConfigurator().apply(GeneralConstants.MotorConstants.nonDriveCurrentLimitCTRE);
+        this.getModule(3).getSteerMotor().getConfigurator().apply(GeneralConstants.MotorConstants.nonDriveCurrentLimitCTRE);
+        
         configurePathPlanner();
         if (Utils.isSimulation())
             startSimThread();

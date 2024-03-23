@@ -103,6 +103,12 @@
                 "data": {
                   "commands": [
                     {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.4
+                      }
+                    },
+                    {
                       "type": "named",
                       "data": {
                         "name": "moveIntake"
@@ -190,28 +196,21 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "moveIntake"
-                      }
-                    }
-                  ]
+                  "name": "moveIntake"
                 }
               },
               {
                 "type": "sequential",
                 "data": {
                   "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
                     {
                       "type": "deadline",
                       "data": {
@@ -254,35 +253,16 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Speaker From Far Right"
+                        "pathName": "Speaker From Far Right Partial Return"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "releaseNote"
+                        "name": "stopLauncher"
                       }
                     }
                   ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Go Past Line"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "stopLauncher"
                 }
               }
             ]

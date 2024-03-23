@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.RobotLimelightHelpers.Results;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -22,19 +23,17 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.m_swerve.getDaqThread().setThreadPriority(99);
   }
-  private void useLimelight () {
-    var lastResult = RobotLimelightHelpers.getLatestResults("limelight").targetingResults;
-    Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
-
-    if (!lastResult.valid) return;
-    m_robotContainer.m_swerve.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
-  }
+  // private void tickVisionOdometry () {
+  //   Results result = RobotLimelightHelpers.getLatestResults("limelight").targetingResults;
+  //   Pose2d llPose = result.getBotPose2d_wpiBlue();
+  //   if (result.valid) RobotContainer.m_swerve.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
+  // }
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
 
+    // tickVisionOdometry();
 
-    // useLimelight();
     // SmartDashboard.putNumber("Drive Right", m_robotContainer.driveController.getRightX());
     // SmartDashboard.putNumber("Drive Left", m_robotContainer.driveController.getLeftY());
 
