@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.units.Dimensionless;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -179,9 +180,9 @@ public class RobotContainer {
   }
 
   public void configureDelay() {
-    sentDelay = SmartDashboard.getNumber("delay", 0);
+    sentDelay = Preferences.getDouble("delay", 8);//SmartDashboard.getNumber("delay", 0);
     //sentDelay = NetworkTableInstance.getDefault().getTable("SmartDashboard").getEntry("delay").getDouble(0);
-    //SmartDashboard.putNumber("sentDelay", sentDelay);  
+    SmartDashboard.putNumber("sentDelay", sentDelay);  
 
   }
 

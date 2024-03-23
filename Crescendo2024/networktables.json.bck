@@ -1,12 +1,10 @@
 [
   {
-    "name": "/Preferences/Delay",
+    "name": "/Preferences/delay",
     "type": "double",
     "value": 8.0,
     "properties": {
-      "cached": true,
-      "persistent": true,
-      "retained": true
+      "persistent": true
     }
   }
 ]
