@@ -32,11 +32,11 @@
     },
     {
       "anchor": {
-        "x": 1.51,
+        "x": 1.49,
         "y": 5.53
       },
       "prevControl": {
-        "x": 2.3870615831829953,
+        "x": 2.3670615831829953,
         "y": 5.496252587946771
       },
       "nextControl": null,
@@ -44,7 +44,13 @@
       "linkedName": "Middle Speaker Position"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": 156.49953912584115,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {

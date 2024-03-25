@@ -3,35 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.7310308543584263,
-        "y": 6.75715268691593
+        "x": 8.27025654051308,
+        "y": 0.749493538930016
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5205360743945078,
-        "y": 6.277692354775892
+        "x": 4.757005576771823,
+        "y": 1.1242403083888288
       },
       "isLocked": false,
-      "linkedName": "Left Note Pickup Angled"
+      "linkedName": "Far Right Note Right Side Pt.2"
     },
     {
       "anchor": {
-        "x": 1.49,
-        "y": 5.53
+        "x": 0.7753211512129142,
+        "y": 4.321298685393376
       },
       "prevControl": {
-        "x": 2.156566803219077,
-        "y": 5.5430292057165325
+        "x": 2.133778190516764,
+        "y": 2.0259747224140052
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Middle Speaker Position"
+      "linkedName": "Right Starting Point"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.2,
-      "rotationDegrees": -121.33668585878164,
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": 180.0,
       "rotateFast": false
     }
   ],
@@ -45,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 121.42956561483838,
     "rotateFast": true
   },
   "reversed": false,

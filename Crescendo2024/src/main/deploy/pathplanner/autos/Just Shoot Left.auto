@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8093860062363999,
+      "y": 6.759221267730286
+    },
+    "rotation": -119.92319441153606
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNoteHold"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stopLauncher"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Competition Autons",
+  "choreoAuto": false
+}

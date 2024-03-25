@@ -90,6 +90,7 @@ public class RobotContainer {
   private static String kauto2 = "2 Note Middle";
   private static String kauto3 = "2 Note Blank Side";
   private static String kauto8 = "2 Note Blank Side - Angled";
+  private static String kauto12 = "2 Note Blank Side - Angled FAR";
   private static String kauto4 = "3 Note Middle";
   private static String kauto9 = "4 Note Middle";
   private static String kauto11 = "4 Note Middle HOLD";
@@ -97,6 +98,7 @@ public class RobotContainer {
   private static String kauto6 = "Get Out Of The Way";
   private static String kauto0 = "Delay Right";
   private static String kauto10 = "Delay Left";
+  private static String kauto14 = "Just Shoot Amp";
 
   private static SendableChooser<String> m_Chooser;
   
@@ -130,6 +132,7 @@ public class RobotContainer {
     m_Chooser.addOption(kauto7, kauto7);
     m_Chooser.addOption(kauto3, kauto3);
     m_Chooser.addOption(kauto8, kauto8);
+    m_Chooser.addOption(kauto12, kauto12);
     m_Chooser.addOption(kauto4, kauto4);
     m_Chooser.addOption(kauto9, kauto9);
     m_Chooser.addOption(kauto11, kauto11);
@@ -137,6 +140,7 @@ public class RobotContainer {
     m_Chooser.addOption(kauto6, kauto6);
     m_Chooser.addOption(kauto0, kauto0);
     m_Chooser.addOption(kauto10, kauto10);
+    m_Chooser.addOption(kauto14, kauto14);
 
     SmartDashboard.putData(m_Chooser);
 
@@ -278,6 +282,8 @@ public class RobotContainer {
         return new PathPlannerAuto("Right 2 Note");
       case "2 Note Blank Side - Angled":
         return new PathPlannerAuto("Right 2 Note Angled");
+      case "2 Note Blank Side - Angled FAR":
+        return new PathPlannerAuto("Right 2 Note Angled Far");
       case "3 Note Middle":
         return new PathPlannerAuto("Middle 3 Note");
       case "4 Note Middle":
@@ -292,6 +298,8 @@ public class RobotContainer {
         return new PathPlannerAuto("Delay Right");
       case "Delay Left":
         return new PathPlannerAuto("Delay Left");
+      case "Just Shoot Amp":
+        return new PathPlannerAuto("Just Shoot Left");
       default:
         return new PathPlannerAuto("Leave Left");
     }

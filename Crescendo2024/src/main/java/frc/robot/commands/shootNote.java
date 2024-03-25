@@ -26,6 +26,8 @@ public class shootNote extends Command {
   @Override
   public void execute() {
     m_launcher.runMotors(speed);
+    // Probably executes the motors idk im not a programmer
+    //P.S. Evans mom is hot
   }
 
   // Called once the command ends or is interrupted.
