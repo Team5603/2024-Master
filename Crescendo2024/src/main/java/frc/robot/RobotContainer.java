@@ -92,13 +92,14 @@ public class RobotContainer {
   private static String kauto8 = "2 Note Blank Side - Angled";
   private static String kauto12 = "2 Note Blank Side - Angled FAR";
   private static String kauto4 = "3 Note Middle";
-  private static String kauto9 = "4 Note Middle";
+  private static String kauto15 = "4 Note Middle";
+  private static String kauto9 = "4 Note Middle FAR";
   private static String kauto11 = "4 Note Middle HOLD";
   private static String kauto5 = "1 Note Blank Side";
   private static String kauto6 = "Get Out Of The Way";
   private static String kauto0 = "Delay Right";
   private static String kauto10 = "Delay Left";
-  private static String kauto14 = "Just Shoot Amp";
+  private static String kauto14 = "Just Shoot Amp Side";
 
   private static SendableChooser<String> m_Chooser;
   
@@ -115,14 +116,14 @@ public class RobotContainer {
     // LauncherConstants.launcherSpeedLauncher));
     // NamedCommands.registerCommand("raiseIntake", new liftIntakeEnc(m_intakeLift,
     // 0));
-    NamedCommands.registerCommand("shootNoteHold",new releaseNoteShootNoteAuton(m_intake, m_launcher, 0.4, true, 1.2));
-    NamedCommands.registerCommand("shootNoteStop",new releaseNoteShootNoteAuton(m_intake, m_launcher, 0, false, .1));
-    NamedCommands.registerCommand("moveIntake",new liftIntakeDownOrUp(m_intakeLift, 0.6));
-    NamedCommands.registerCommand("runIntake",new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
-    NamedCommands.registerCommand("revLauncher",new shootNoteTimed( m_launcher, LauncherConstants.launcherSpeedLauncher, 15));
-    NamedCommands.registerCommand("releaseNote",new runIntakeTimed(m_intake, .5, true));
-    NamedCommands.registerCommand("stopLauncher",new stopLauncher(m_launcher));
-    NamedCommands.registerCommand("stopIntake",new stopIntake(m_intake));
+    NamedCommands.registerCommand("shootNoteHold", new releaseNoteShootNoteAuton(m_intake, m_launcher, 0.4, true, 1.2));
+    NamedCommands.registerCommand("shootNoteStop", new releaseNoteShootNoteAuton(m_intake, m_launcher, 0, false, .1));
+    NamedCommands.registerCommand("moveIntake", new liftIntakeDownOrUp(m_intakeLift, 0.6));
+    NamedCommands.registerCommand("runIntake", new runIntake(m_intake, IntakeConstants.intakeSpeed, false));
+    NamedCommands.registerCommand("revLauncher", new shootNoteTimed( m_launcher, LauncherConstants.launcherSpeedLauncher, 15));
+    NamedCommands.registerCommand("releaseNote", new runIntakeTimed(m_intake, .5, true));
+    NamedCommands.registerCommand("stopLauncher", new stopLauncher(m_launcher));
+    NamedCommands.registerCommand("stopIntake", new stopIntake(m_intake));
 
     m_Chooser = new SendableChooser<>();
 
@@ -134,6 +135,7 @@ public class RobotContainer {
     m_Chooser.addOption(kauto8, kauto8);
     m_Chooser.addOption(kauto12, kauto12);
     m_Chooser.addOption(kauto4, kauto4);
+    m_Chooser.addOption(kauto15, kauto15);
     m_Chooser.addOption(kauto9, kauto9);
     m_Chooser.addOption(kauto11, kauto11);
     m_Chooser.addOption(kauto5, kauto5);
@@ -145,6 +147,12 @@ public class RobotContainer {
     SmartDashboard.putData(m_Chooser);
 
     tagData.setAlliance(getAlliance());
+    if (getAlliance() == edu.wpi.first.wpilibj.DriverStation.Alliance.Blue) {
+      m_swerve.setOperatorPerspectiveForward(new Rotation2d(0));
+    } else {
+      m_swerve.setOperatorPerspectiveForward(new Rotation2d(180));
+    }
+
     configureBindings();
   }
 
@@ -287,6 +295,8 @@ public class RobotContainer {
       case "3 Note Middle":
         return new PathPlannerAuto("Middle 3 Note");
       case "4 Note Middle":
+        return new PathPlannerAuto("Middle 4 Note");
+      case "4 Note Middle FAR":
         return new PathPlannerAuto("Middle 4 Note Far Right");
       case "4 Note Middle HOLD":
         return new PathPlannerAuto("Middle 4 Note Far Right Hold");
@@ -298,7 +308,7 @@ public class RobotContainer {
         return new PathPlannerAuto("Delay Right");
       case "Delay Left":
         return new PathPlannerAuto("Delay Left");
-      case "Just Shoot Amp":
+      case "Just Shoot Amp Side":
         return new PathPlannerAuto("Just Shoot Left");
       default:
         return new PathPlannerAuto("Leave Left");

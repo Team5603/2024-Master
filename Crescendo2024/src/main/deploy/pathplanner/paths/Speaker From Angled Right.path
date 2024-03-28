@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.8099299203965142,
-        "y": 6.784785233255618
+        "x": 2.5369543500481093,
+        "y": 4.115652628088097
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3946376425185107,
-        "y": 6.890032623237577
+        "x": 1.6566008467137567,
+        "y": 4.753908918005503
       },
       "isLocked": false,
-      "linkedName": "Left Start Point"
+      "linkedName": "Right Note Pickup Angled"
     },
     {
       "anchor": {
-        "x": 2.578789979263267,
+        "x": 1.49,
         "y": 5.53
       },
       "prevControl": {
-        "x": 2.2745655922242327,
-        "y": 5.540907779203153
+        "x": 1.634592009130398,
+        "y": 4.676877986463747
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Middle Note Pickup Pt.2"
+      "linkedName": "Middle Speaker Position"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.69461429119534,
-    "rotateFast": false
+    "rotation": 180.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "Pick up Paths",
+  "folder": "Speaker Path",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

@@ -8,27 +8,33 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.946072023255158,
-        "y": 4.712744240303296
+        "x": 1.78865387221391,
+        "y": 4.291723328754967
       },
       "isLocked": false,
       "linkedName": "Middle Speaker Position"
     },
     {
       "anchor": {
-        "x": 2.446567628177991,
-        "y": 4.198201444835939
+        "x": 2.5369543500481093,
+        "y": 4.115652628088097
       },
       "prevControl": {
-        "x": 1.9788014504803932,
-        "y": 4.712744240303296
+        "x": 1.9647245728807803,
+        "y": 4.25871007237993
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Right Note Pickup Angled"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 165.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 167.00538320808357,
+    "rotation": 178.0,
     "rotateFast": false
   },
   "reversed": false,
