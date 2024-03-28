@@ -2,7 +2,7 @@
   {
     "name": "/Preferences/delay",
     "type": "double",
-    "value": 90.0,
+    "value": 8.0,
     "properties": {
       "persistent": true
     }

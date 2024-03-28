@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class waitSeconds extends Command {
@@ -32,6 +33,7 @@ public class waitSeconds extends Command {
   public void end(boolean interrupted) {
     timer.stop();
     timer.reset();
+    SmartDashboard.putNumber("Finished In", seconds);
   }
 
   // Returns true when the command should end.

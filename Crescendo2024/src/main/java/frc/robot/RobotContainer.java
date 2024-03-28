@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.fasterxml.jackson.databind.util.Named;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -101,7 +102,9 @@ public class RobotContainer {
   private static String kauto10 = "Delay Left";
   private static String kauto14 = "Just Shoot Amp Side";
 
-  private static SendableChooser<String> m_Chooser;
+  // private static SendableChooser<String> m_Chooser;
+
+  private static SendableChooser<Command> m_AutonChooser;
   
   private double sentDelay;
 
@@ -124,27 +127,51 @@ public class RobotContainer {
     NamedCommands.registerCommand("releaseNote", new runIntakeTimed(m_intake, .5, true));
     NamedCommands.registerCommand("stopLauncher", new stopLauncher(m_launcher));
     NamedCommands.registerCommand("stopIntake", new stopIntake(m_intake));
+    NamedCommands.registerCommand("waitSeconds", new waitSeconds(sentDelay));
 
-    m_Chooser = new SendableChooser<>();
+    // m_Chooser = new SendableChooser<>();
 
-    m_Chooser.setDefaultOption(kFailSafe, kFailSafe);
-    m_Chooser.addOption(kauto1, kauto1);
-    m_Chooser.addOption(kauto2, kauto2);
-    m_Chooser.addOption(kauto7, kauto7);
-    m_Chooser.addOption(kauto3, kauto3);
-    m_Chooser.addOption(kauto8, kauto8);
-    m_Chooser.addOption(kauto12, kauto12);
-    m_Chooser.addOption(kauto4, kauto4);
-    m_Chooser.addOption(kauto15, kauto15);
-    m_Chooser.addOption(kauto9, kauto9);
-    m_Chooser.addOption(kauto11, kauto11);
-    m_Chooser.addOption(kauto5, kauto5);
-    m_Chooser.addOption(kauto6, kauto6);
-    m_Chooser.addOption(kauto0, kauto0);
-    m_Chooser.addOption(kauto10, kauto10);
-    m_Chooser.addOption(kauto14, kauto14);
+    // m_Chooser.setDefaultOption(kFailSafe, kFailSafe);
+    // m_Chooser.addOption(kauto1, kauto1);
+    // m_Chooser.addOption(kauto2, kauto2);
+    // m_Chooser.addOption(kauto7, kauto7);
+    // m_Chooser.addOption(kauto3, kauto3);
+    // m_Chooser.addOption(kauto8, kauto8);
+    // m_Chooser.addOption(kauto12, kauto12);
+    // m_Chooser.addOption(kauto4, kauto4);
+    // m_Chooser.addOption(kauto15, kauto15);
+    // m_Chooser.addOption(kauto9, kauto9);
+    // m_Chooser.addOption(kauto11, kauto11);
+    // m_Chooser.addOption(kauto5, kauto5);
+    // m_Chooser.addOption(kauto6, kauto6);
+    // m_Chooser.addOption(kauto0, kauto0);
+    // m_Chooser.addOption(kauto10, kauto10);
+    // m_Chooser.addOption(kauto14, kauto14);
 
-    SmartDashboard.putData(m_Chooser);
+    // SmartDashboard.putData(m_Chooser);
+
+    m_AutonChooser = AutoBuilder.buildAutoChooser();
+    
+
+    // m_AutonChooser.addOption(kFailSafe, new PathPlannerAuto("Leave Left"));
+    // m_AutonChooser.addOption(kauto1, new PathPlannerAuto("Left 2 Note"));
+    // m_AutonChooser.addOption(kauto7, new PathPlannerAuto("Left 2 Note Angled"));
+    // m_AutonChooser.addOption(kauto2, new PathPlannerAuto("Middle 2 Note"));
+    // m_AutonChooser.addOption(kauto3, new PathPlannerAuto("Right 2 Note"));
+    // m_AutonChooser.addOption(kauto8, new PathPlannerAuto("Right 2 Note Angled"));
+    // m_AutonChooser.addOption(kauto12, new PathPlannerAuto("Right 2 Note Angled FAR"));
+    // m_AutonChooser.addOption(kauto4, new PathPlannerAuto("Middle 3 Note"));
+    // m_AutonChooser.addOption(kauto15, new PathPlannerAuto("Middle 4 Note"));
+    // m_AutonChooser.addOption(kauto9, new PathPlannerAuto("Middle 4 Note Far Right"));
+    // m_AutonChooser.addOption(kauto11, new PathPlannerAuto("Middle 4 Note Far Right Hold"));
+    // m_AutonChooser.addOption(kauto5, new PathPlannerAuto("Right 1 Note"));
+    // m_AutonChooser.addOption(kauto6, new PathPlannerAuto("Leave Right"));
+    // m_AutonChooser.addOption(kauto0, new PathPlannerAuto("Delay Right"));
+    // m_AutonChooser.addOption(kauto10, new PathPlannerAuto("Delay Left"));
+    // m_AutonChooser.addOption(kauto14, new PathPlannerAuto("Just Shoot Left"));
+  
+
+    SmartDashboard.putData(m_AutonChooser);
 
     tagData.setAlliance(getAlliance());
     if (getAlliance() == edu.wpi.first.wpilibj.DriverStation.Alliance.Blue) {
@@ -270,51 +297,53 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    String m_autoSelected = m_Chooser.getSelected();
-    System.out.println("Auton Selected " + m_autoSelected);
-
-    configureDelay();
-
     NamedCommands.registerCommand("waitSeconds", new waitSeconds(sentDelay));
+    return m_AutonChooser.getSelected();
+  //   String m_autoSelected = m_Chooser.getSelected();
+  //   System.out.println("Auton Selected " + m_autoSelected);
 
-    switch (m_autoSelected) {
-      case "Fail Safe":
-        return new PathPlannerAuto("Leave Left");
-      case "2 Note Amp Side":
-        return new PathPlannerAuto("Left 2 Note");
-      case "2 Note Amp Side - Angled":
-        return new PathPlannerAuto("Left 2 Note Angled");
-      case "2 Note Middle":
-        return new PathPlannerAuto("Middle 2 Note");
-      case "2 Note Blank Side":
-        return new PathPlannerAuto("Right 2 Note");
-      case "2 Note Blank Side - Angled":
-        return new PathPlannerAuto("Right 2 Note Angled");
-      case "2 Note Blank Side - Angled FAR":
-        return new PathPlannerAuto("Right 2 Note Angled Far");
-      case "3 Note Middle":
-        return new PathPlannerAuto("Middle 3 Note");
-      case "4 Note Middle":
-        return new PathPlannerAuto("Middle 4 Note");
-      case "4 Note Middle FAR":
-        return new PathPlannerAuto("Middle 4 Note Far Right");
-      case "4 Note Middle HOLD":
-        return new PathPlannerAuto("Middle 4 Note Far Right Hold");
-      case "1 Note Blank Side":
-        return new PathPlannerAuto("Right 1 Note");
-      case "Get Out Of The Way":
-        return new PathPlannerAuto("Leave Right");
-      case "Delay Right":
-        return new PathPlannerAuto("Delay Right");
-      case "Delay Left":
-        return new PathPlannerAuto("Delay Left");
-      case "Just Shoot Amp Side":
-        return new PathPlannerAuto("Just Shoot Left");
-      default:
-        return new PathPlannerAuto("Leave Left");
-    }
-  }
+  //   configureDelay();
+
+  //   NamedCommands.registerCommand("waitSeconds", new waitSeconds(sentDelay));
+
+  //   switch (m_autoSelected) {
+  //     case "Fail Safe":
+  //       return new PathPlannerAuto("Leave Left");
+  //     case "2 Note Amp Side":
+  //       return new PathPlannerAuto("Left 2 Note");
+  //     case "2 Note Amp Side - Angled":
+  //       return new PathPlannerAuto("Left 2 Note Angled");
+  //     case "2 Note Middle":
+  //       return new PathPlannerAuto("Middle 2 Note");
+  //     case "2 Note Blank Side":
+  //       return new PathPlannerAuto("Right 2 Note");
+  //     case "2 Note Blank Side - Angled":
+  //       return new PathPlannerAuto("Right 2 Note Angled");
+  //     case "2 Note Blank Side - Angled FAR":
+  //       return new PathPlannerAuto("Right 2 Note Angled Far");
+  //     case "3 Note Middle":
+  //       return new PathPlannerAuto("Middle 3 Note");
+  //     case "4 Note Middle":
+  //       return new PathPlannerAuto("Middle 4 Note");
+  //     case "4 Note Middle FAR":
+  //       return new PathPlannerAuto("Middle 4 Note Far Right");
+  //     case "4 Note Middle HOLD":
+  //       return new PathPlannerAuto("Middle 4 Note Far Right Hold");
+  //     case "1 Note Blank Side":
+  //       return new PathPlannerAuto("Right 1 Note");
+  //     case "Get Out Of The Way":
+  //       return new PathPlannerAuto("Leave Right");
+  //     case "Delay Right":
+  //       return new PathPlannerAuto("Delay Right");
+  //     case "Delay Left":
+  //       return new PathPlannerAuto("Delay Left");
+  //     case "Just Shoot Amp Side":
+  //       return new PathPlannerAuto("Just Shoot Left");
+  //     default:
+  //       return new PathPlannerAuto("Leave Left");
+  //   }
+  // }
   // public Command scheduleAprilTagPath() {
 
-  // }
+  }
 }
